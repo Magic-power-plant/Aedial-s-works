@@ -173,13 +173,13 @@ public final class P3GameTests {
         var config=com.mpp.aedialsworks.common.config.AWConfigs.SERVER.cells.general;
         int oldMin=config.subnetProxyMinTickRate.get(),oldMax=config.subnetProxyMaxTickRate.get(),oldSlots=config.subnetProxyUpgradeSlots.get(),oldCellSlots=config.hdItemCellUpgradeSlots.get();
         try{
-            config.subnetProxyMinTickRate.set(37);config.subnetProxyMaxTickRate.set(11);config.subnetProxyUpgradeSlots.set(24);config.hdItemCellUpgradeSlots.set(16);
+            ConfigPins.pin("cells.general.subnetProxyMinTickRate",config.subnetProxyMinTickRate,37);ConfigPins.pin("cells.general.subnetProxyMaxTickRate",config.subnetProxyMaxTickRate,11);ConfigPins.pin("cells.general.subnetProxyUpgradeSlots",config.subnetProxyUpgradeSlots,24);ConfigPins.pin("cells.general.hdItemCellUpgradeSlots",config.hdItemCellUpgradeSlots,16);
             var part=AWCells.PARTS.get(MachineKind.PROXY_FRONT).get().createPart();var proxy=(ProxyLogic)part.logic;var request=proxy.getTickingRequest(null);
             h.assertTrue(request.minTickRate()==37&&request.maxTickRate()==37&&request.initialTickRate()==37,"Inverted tick bounds are normalized");
             h.assertTrue(proxy.upgrades.size()==24,"Configured proxy upgrade slots");
-            config.subnetProxyMaxTickRate.set(120);request=proxy.getTickingRequest(null);h.assertTrue(request.maxTickRate()==120,"Configured maximum tick interval is applied");
+            ConfigPins.pin("cells.general.subnetProxyMaxTickRate",config.subnetProxyMaxTickRate,120);request=proxy.getTickingRequest(null);h.assertTrue(request.maxTickRate()==120,"Configured maximum tick interval is applied");
             var item=AWCells.cell(CellFamily.HD_ITEM,CellTier.K1).get();h.assertTrue(item.getUpgrades(new ItemStack(item)).size()==16,"Configured cell upgrade slots");
-        }finally{config.subnetProxyMinTickRate.set(oldMin);config.subnetProxyMaxTickRate.set(oldMax);config.subnetProxyUpgradeSlots.set(oldSlots);config.hdItemCellUpgradeSlots.set(oldCellSlots);}
+        }finally{ConfigPins.restore(config.subnetProxyMinTickRate,oldMin);ConfigPins.restore(config.subnetProxyMaxTickRate,oldMax);ConfigPins.restore(config.subnetProxyUpgradeSlots,oldSlots);ConfigPins.restore(config.hdItemCellUpgradeSlots,oldCellSlots);}
         h.succeed();
     }
 

@@ -109,13 +109,13 @@ public final class P1GameTests {
             var player=net.minecraftforge.common.util.FakePlayerFactory.getMinecraft(h.getLevel());var menu=new CellTerminalMenu(42,player.getInventory(),new TestHost(player,drive.getMainNode().getGrid()),UUID.randomUUID());player.containerMenu=menu;menu.broadcastChanges();
             // The first drive slot in a newly created scan has session id 100, token 1.
             var payload=new CompoundTag();payload.putUUID("session",menu.session());payload.putLong("id",100);payload.putLong("token",1);payload.putInt("priority",1234);
-            boolean previous=AWConfigs.SERVER.cellterminal.misc.priorityEditEnabled.get();
+            var priorityEdit=AWConfigs.SERVER.cellterminal.misc.priorityEditEnabled;boolean previous=priorityEdit.get();
             try {
-                AWConfigs.SERVER.cellterminal.misc.priorityEditEnabled.set(false);menu.receiveClientAction(player,AWIds.id("cellterminal/priority"),payload);h.assertTrue(drive.getPriority()==0,"Disabled action rejected server-side");
-                AWConfigs.SERVER.cellterminal.misc.priorityEditEnabled.set(true);menu.receiveClientAction(player,AWIds.id("cellterminal/priority"),payload);h.assertTrue(drive.getPriority()==1234,"Config change takes effect in already-open menu");
+                ConfigPins.pin("cellterminal.misc.priorityEditEnabled",priorityEdit,false);menu.receiveClientAction(player,AWIds.id("cellterminal/priority"),payload);h.assertTrue(drive.getPriority()==0,"Disabled action rejected server-side");
+                ConfigPins.pin("cellterminal.misc.priorityEditEnabled",priorityEdit,true);menu.receiveClientAction(player,AWIds.id("cellterminal/priority"),payload);h.assertTrue(drive.getPriority()==1234,"Config change takes effect in already-open menu");
                 var stale=payload.copy();stale.putUUID("session",UUID.randomUUID());stale.putInt("priority",999);menu.receiveClientAction(player,AWIds.id("cellterminal/priority"),stale);h.assertTrue(drive.getPriority()==1234,"Old menu nonce cannot act");
                 drive.getInternalInventory().setItemDirect(0,AEItems.ITEM_CELL_4K.stack());menu.receiveClientAction(player,AWIds.id("cellterminal/pickup"),payload);h.assertTrue(menu.getCarried().isEmpty() && !drive.getInternalInventory().getStackInSlot(0).isEmpty(),"Stale cell cannot be ejected");
-            }finally{AWConfigs.SERVER.cellterminal.misc.priorityEditEnabled.set(previous);menu.removed(player);player.containerMenu=player.inventoryMenu;}
+            }finally{ConfigPins.restore(priorityEdit,previous);menu.removed(player);player.containerMenu=player.inventoryMenu;}
             h.succeed();
         });
     }
@@ -129,9 +129,9 @@ public final class P1GameTests {
             var payload=new CompoundTag();payload.putUUID("session",menu.session());payload.putLong("id",100);payload.putLong("token",1);
             var cfg=AWConfigs.SERVER.cellterminal.cellOperations;boolean previous=cfg.cellEjectEnabled.get();
             try {
-                cfg.cellEjectEnabled.set(false);menu.receiveClientAction(player,AWIds.id("cellterminal/pickup"),payload);
+                ConfigPins.pin("cellterminal.cell_operations.cellEjectEnabled",cfg.cellEjectEnabled,false);menu.receiveClientAction(player,AWIds.id("cellterminal/pickup"),payload);
                 h.assertTrue(menu.getCarried().isEmpty() && drive.getInternalInventory().getStackInSlot(0)==original,"Ejection denied without moving cursor or cell");
-                cfg.cellEjectEnabled.set(true);menu.receiveClientAction(player,AWIds.id("cellterminal/pickup"),payload);
+                ConfigPins.pin("cellterminal.cell_operations.cellEjectEnabled",cfg.cellEjectEnabled,true);menu.receiveClientAction(player,AWIds.id("cellterminal/pickup"),payload);
                 h.assertTrue(menu.getCarried()==original && drive.getInternalInventory().getStackInSlot(0).isEmpty(),"Ejection moves exactly one original cell to cursor; held="+menu.getCarried()+", slot="+drive.getInternalInventory().getStackInSlot(0)+", active="+drive.getMainNode().getNode().isActive()+", build="+player.mayBuild()+", valid="+menu.stillValid(player)+", enabled="+AWConfigs.SERVER.cellterminal.tabs.terminalTabEnabled.get());
                 payload.putLong("token",2);menu.receiveClientAction(player,AWIds.id("cellterminal/pickup"),payload);
                 h.assertTrue(menu.getCarried().isEmpty() && drive.getInternalInventory().getStackInSlot(0).is(AEItems.ITEM_CELL_1K.asItem()),"Insertion returns the cell and clears cursor");
@@ -141,7 +141,7 @@ public final class P1GameTests {
                 menu.receiveClientAction(player,AWIds.id("cellterminal/partition"),payload);
                 var target=new Ae2StorageTarget(200,drive,0,drive.getMainNode().getGrid());
                 h.assertTrue(AEItemKey.of(Items.DIAMOND).equals(target.partitionKey(0)) && menu.getCarried().getCount()==1,"Ghost partition does not consume carried item");
-            }finally{cfg.cellEjectEnabled.set(previous);menu.removed(player);player.containerMenu=player.inventoryMenu;}
+            }finally{ConfigPins.restore(cfg.cellEjectEnabled,previous);menu.removed(player);player.containerMenu=player.inventoryMenu;}
             h.succeed();
         });
     }
