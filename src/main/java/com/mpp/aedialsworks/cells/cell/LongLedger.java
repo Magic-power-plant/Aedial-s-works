@@ -32,7 +32,7 @@ public final class LongLedger<K> {
     /** Loading never reapplies a lowered configuration limit, so existing contents remain recoverable. */
     public void restore(K key,long amount) {
         if (key==null || amount<=0) return;
-        if (entries.containsKey(key) || amount>Long.MAX_VALUE-total) throw new IllegalArgumentException("Invalid persisted ledger");
+        if (entries.containsKey(key) || amount>Long.MAX_VALUE-total) return;
         entries.put(key,amount);total+=amount;
     }
 }

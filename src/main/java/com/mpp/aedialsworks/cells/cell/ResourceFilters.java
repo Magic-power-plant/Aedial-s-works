@@ -11,9 +11,10 @@ public final class ResourceFilters {
     public static boolean matches(AEKey key,Collection<AEKey> selected,boolean inverse,boolean fuzzy,FuzzyMode mode,String tag){
         if(key==null)return false;
         boolean hasTag=tag!=null&&!tag.isBlank();
-        boolean matched=selected.isEmpty()&&!hasTag;
+        if(selected.isEmpty()&&!hasTag)return true;
+        boolean matched=false;
         for(var wanted:selected)if(wanted.equals(key)||(fuzzy&&wanted.fuzzyEquals(key,mode))){matched=true;break;}
         if(hasTag){var id=ResourceLocation.tryParse(tag);if(id!=null)matched|=key.isTagged(key instanceof AEFluidKey?TagKey.create(Registries.FLUID,id):TagKey.create(Registries.ITEM,id));}
-        return inverse?!matched:matched;
+        return inverse!=matched;
     }
 }

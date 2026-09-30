@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 
 /** Pixel geometry and original DiskTerminal atlas; no resampled bitmap or generic menu buttons. */
 public final class TerminalAtlas {
-    public static final int WIDTH = 208, ROW_HEIGHT = 18, CONTENT_TOP = 34;
+    public static final int ROW_HEIGHT = 18, CONTENT_TOP = 34;
     public static final int TEXT = 0x404040, SECONDARY = 0x707070;
     private static final ResourceLocation ATLAS = new ResourceLocation("aedialsworks", "textures/gui/cellterminal/atlas.png");
     private TerminalAtlas() {}

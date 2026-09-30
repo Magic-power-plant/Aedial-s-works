@@ -2,16 +2,29 @@ package com.mpp.aedialsworks.cells.cell.compacting;
 
 import java.util.*;
 import appeng.api.stacks.AEItemKey;
+import com.mpp.aedialsworks.Aedialsworks;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 /** Uses the world's actual recipe manager; only exact reversible recipes without remainders qualify. */
+@Mod.EventBusSubscriber(modid=Aedialsworks.MODID)
 public final class CompactingRecipes {
     private CompactingRecipes(){}
     public record Step(AEItemKey key,int ratio){}
+    private record CacheKey(RecipeManager manager,AEItemKey item,int up,int down){}
+    private static final Map<CacheKey,CompressionChain> CACHE=new HashMap<>();
+    @SubscribeEvent public static void reload(AddReloadListenerEvent event){CACHE.clear();}
+    public static CompressionChain discover(Level level,AEItemKey main,int up,int down){
+        var cacheKey=new CacheKey(level.getRecipeManager(),main,up,down);
+        var cached=CACHE.get(cacheKey);if(cached!=null)return cached;
+        var chain=compute(level,main,up,down);CACHE.put(cacheKey,chain);return chain;
+    }
     private static TransientCraftingContainer frame(AEItemKey key,int side){
         var frame=new TransientCraftingContainer(new AbstractContainerMenu(null,-1){public ItemStack quickMoveStack(Player p,int i){return ItemStack.EMPTY;}public boolean stillValid(Player p){return false;}},side,side);
         for(int i=0;i<side*side;i++)frame.setItem(i,key.toStack());return frame;
@@ -36,7 +49,7 @@ public final class CompactingRecipes {
             for(var reverse:results(level,candidate,ratio==9?3:2))if(reverse.getCount()==1&&key.matches(reverse))return new Step(candidate,ratio);
         }return null;
     }
-    public static CompressionChain discover(Level level,AEItemKey main,int up,int down){
+    private static CompressionChain compute(Level level,AEItemKey main,int up,int down){
         var keys=new ArrayList<AEItemKey>();var adjacent=new ArrayList<Integer>();keys.add(main);var seen=new HashSet<AEItemKey>();seen.add(main);
         AEItemKey current=main;int mainIndex=0;
         for(int i=0;i<Math.min(up,15);i++){var next=higher(level,current);if(next==null||!seen.add(next.key))break;keys.add(0,next.key);adjacent.add(0,next.ratio);current=next.key;mainIndex++;}
@@ -44,7 +57,7 @@ public final class CompactingRecipes {
         for(int i=0;i<Math.min(down,15);i++){var next=lower(level,current);if(next==null||!seen.add(next.key))break;keys.add(next.key);adjacent.add(next.ratio);current=next.key;}
         // Drop only extensions that cannot be represented by the public long resource API.
         var rates=new ArrayList<Long>(Collections.nCopies(keys.size(),1L));
-        for(int i=keys.size()-2;i>=0;i--){long lower=rates.get(i+1);int ratio=adjacent.get(i);if(lower>Long.MAX_VALUE/ratio)return discover(level,main,Math.max(0,up-1),Math.max(0,down-1));rates.set(i,lower*ratio);}
+        for(int i=keys.size()-2;i>=0;i--){long lower=rates.get(i+1);int ratio=adjacent.get(i);if(lower>Long.MAX_VALUE/ratio)return compute(level,main,Math.max(0,up-1),Math.max(0,down-1));rates.set(i,lower*ratio);}
         return new CompressionChain(keys,rates,mainIndex);
     }
 }

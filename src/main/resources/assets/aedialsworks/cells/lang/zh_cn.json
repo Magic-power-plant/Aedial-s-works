@@ -189,7 +189,7 @@
   "gui.aedialsworks.cells.READY": "运行中",
   "gui.aedialsworks.cells.OFFLINE": "离线",
   "gui.aedialsworks.cells.NO_PAIR": "未配对",
-  "gui.aedialsworks.cells.BACK": "子网端",
+  "gui.aedialsworks.cells.BACK_SIDE": "子网端",
   "gui.aedialsworks.cells.SAME_GRID": "拒绝：同一网络",
   "gui.aedialsworks.cells.CYCLE": "拒绝：网络循环",
   "gui.aedialsworks.cells.item": "物品",

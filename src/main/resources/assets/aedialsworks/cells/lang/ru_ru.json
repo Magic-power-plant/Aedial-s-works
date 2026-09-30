@@ -189,7 +189,7 @@
   "gui.aedialsworks.cells.READY": "Active",
   "gui.aedialsworks.cells.OFFLINE": "Offline",
   "gui.aedialsworks.cells.NO_PAIR": "Not paired",
-  "gui.aedialsworks.cells.BACK": "Origin side",
+  "gui.aedialsworks.cells.BACK_SIDE": "Origin side",
   "gui.aedialsworks.cells.SAME_GRID": "Blocked: same grid",
   "gui.aedialsworks.cells.CYCLE": "Blocked: cycle",
   "gui.aedialsworks.cells.item": "Items",

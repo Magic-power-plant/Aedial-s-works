@@ -1,4 +1,5 @@
 package com.mpp.aedialsworks.powertools.maintainer;
+import java.util.*;
 import java.util.concurrent.*;
 import com.google.common.collect.ImmutableSet;
 import appeng.api.config.Actionable;
@@ -14,6 +15,7 @@ public final class MaintainerLogic extends AbstractPowerLogic implements ICrafti
     public static final int CAPACITY=24;
     public final ResourceEntry[] entries=new ResourceEntry[CAPACITY];
     private final MaintainerTask[] tasks=new MaintainerTask[CAPACITY];
+    private final List<ICraftingLink> persistedLinks=new ArrayList<>();
     public final long[] batch=new long[CAPACITY];
     public final int[] interval=new int[CAPACITY];
     private IGrid calculationGrid;
@@ -23,6 +25,7 @@ public final class MaintainerLogic extends AbstractPowerLogic implements ICrafti
     }
     @Override protected void tick(int elapsed) {
         var grid=grid(); if(grid==null) return;
+        if(!persistedLinks.isEmpty())persistedLinks.removeIf(l->l.isDone()||l.isCanceled());
         if(calculationGrid!=grid) { for(var t:tasks)t.unload();calculationGrid=grid; }
         long now=host.powerLevel().getGameTime(); int calculating=0;
         for(var t:tasks) if(t.future!=null) calculating++;
@@ -47,29 +50,35 @@ public final class MaintainerLogic extends AbstractPowerLogic implements ICrafti
             if(!e.enabled||e.key==null||e.quantity>=e.threshold||t.busy()||now<t.nextAttempt) continue;
             if(calculating>=AWConfigs.SERVER.powertools.maintainer.maxConcurrentCalculations.get()) continue;
             if(!service.isCraftable(e.key)) {t.state=AbstractCraftingTask.State.NOT_CRAFTABLE;t.nextAttempt=now+100;continue;}
-            long needed=Math.min(batch[i],e.threshold-e.quantity);
+            long needed=Math.min(batch[i],Math.min(ResourceEntry.MAX_AMOUNT,e.threshold-e.quantity));
             t.future=service.beginCraftingCalculation(host.powerLevel(),()->source,e.key,needed,CalculationStrategy.CRAFT_LESS);
             t.state=AbstractCraftingTask.State.CALCULATING;t.nextAttempt=now+interval[i];calculating++;
         }
     }
     @Override public IGridNode getActionableNode(){return host.getActionableNode();}
-    @Override public ImmutableSet<ICraftingLink> getRequestedJobs(){var b=ImmutableSet.<ICraftingLink>builder();for(var t:tasks)if(t.link!=null)b.add(t.link);return b.build();}
+    @Override public ImmutableSet<ICraftingLink> getRequestedJobs(){
+        var links=new LinkedHashSet<ICraftingLink>();
+        for(var t:tasks)if(t.link!=null)links.add(t.link);
+        links.addAll(persistedLinks);
+        return ImmutableSet.copyOf(links);
+    }
     @Override public long insertCraftedItems(ICraftingLink link,AEKey key,long amount,Actionable mode){
-        if(!getRequestedJobs().contains(link)||grid()==null||!host.powerActive())return 0;
-        return grid().getStorageService().getInventory().insert(key,amount,mode,source);
+        var grid=grid();
+        if(grid==null)return amount;
+        return grid.getStorageService().getInventory().insert(key,amount,mode,source);
     }
     @Override public void jobStateChange(ICraftingLink link){for(var t:tasks)if(t.link==link){t.link=null;t.state=AbstractCraftingTask.State.IDLE;changed();}}
     @Override public void unload(){super.unload();for(var t:tasks)t.unload();calculationGrid=null;}
-    @Override public void removed(){for(var t:tasks)t.cancel();super.removed();}
+    @Override public void removed(){for(var t:tasks)t.cancel();persistedLinks.clear();super.removed();}
     @Override public void save(CompoundTag tag){
         var list=new ListTag();for(int i=0;i<CAPACITY;i++){var n=entries[i].save();n.putLong("batch",batch[i]);n.putInt("interval",interval[i]);tasks[i].save(n);list.add(n);}tag.put("entries",list);
     }
     @Override public void load(CompoundTag tag){var list=tag.getList("entries",Tag.TAG_COMPOUND);for(int i=0;i<CAPACITY;i++){
-        var n=i<list.size()?list.getCompound(i):new CompoundTag();entries[i]=ResourceEntry.load(n);batch[i]=Math.max(1,n.getLong("batch"));interval[i]=Math.max(20,Math.min(72000,n.getInt("interval")));tasks[i].load(n,this);
-    }}
+        var n=i<list.size()?list.getCompound(i):new CompoundTag();entries[i]=ResourceEntry.load(n);batch[i]=Math.max(1,Math.min(ResourceEntry.MAX_AMOUNT,n.getLong("batch")));interval[i]=Math.max(20,Math.min(72000,n.getInt("interval")));tasks[i].load(n,this);
+    }persistedLinks.clear();for(var t:tasks)if(t.link!=null)persistedLinks.add(t.link);}
     @Override public boolean configure(ServerPlayer player,String action,CompoundTag value){
         int slot=value.getInt("slot");if(slot<0||slot>=CAPACITY)return false;
-        if(action.equals("entry")){tasks[slot].cancel();entries[slot]=ResourceEntry.load(value);batch[slot]=Math.max(1,value.getLong("batch"));interval[slot]=Math.max(20,Math.min(72000,value.getInt("interval")));changed();return true;}
+        if(action.equals("entry")){tasks[slot].cancel();entries[slot]=ResourceEntry.load(value);batch[slot]=Math.max(1,Math.min(ResourceEntry.MAX_AMOUNT,value.getLong("batch")));interval[slot]=Math.max(20,Math.min(72000,value.getInt("interval")));changed();return true;}
         if(action.equals("run")){tasks[slot].nextAttempt=0;return true;}
         if(action.equals("cancel")){tasks[slot].cancel();changed();return true;}return false;
     }

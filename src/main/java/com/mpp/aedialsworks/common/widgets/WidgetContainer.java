@@ -179,7 +179,7 @@ public final class WidgetContainer extends AbstractContainerEventHandler impleme
     }
 
     @Override public void tick() {
-        if (closed) return;
+        if (closed || !isVisible()) return;
         inputFocus();
         for (Child child : List.copyOf(entries)) {
             if (child.events instanceof IWidget widget) widget.tick();

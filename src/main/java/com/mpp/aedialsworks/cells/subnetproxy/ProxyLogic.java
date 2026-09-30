@@ -33,7 +33,7 @@ public final class ProxyLogic extends AbstractCellsLogic implements IStorageProv
     @Override public IGrid destinationGrid(){return front()?grid():null;}
     private boolean pairActive(){var other=counterpart();return front()&&active()&&other!=null&&other.active()&&originGrid()!=null&&destinationGrid()!=null;}
     @Override public String guardStatus(){
-        if(!front())return counterpart()==null?"NO_PAIR":"BACK";
+        if(!front())return counterpart()==null?"NO_PAIR":"BACK_SIDE";
         if(counterpart()==null)return "NO_PAIR";if(!pairActive())return "OFFLINE";
         var origin=originGrid();var destination=destinationGrid();if(origin==destination)return "SAME_GRID";
         boolean cycle=ProxyGuard.reaches(origin,destination,node->{var next=new ArrayList<IGrid>();for(var p:LIVE)if(p.pairActive()&&p.destinationGrid()==node)next.add(p.originGrid());return next;});
@@ -48,23 +48,25 @@ public final class ProxyLogic extends AbstractCellsLogic implements IStorageProv
     private String stableId(){return host.cellsLevel().dimension().location()+":"+host.cellsPos().asLong()+":"+(host instanceof CellsPart p?p.getSide():"");}
     private boolean usable(){return !ProxyGuard.Hop.nested()&&front()&&guardStatus().equals("READY");}
     @Override public void mountInventories(IStorageMounts mounts){if(front())mounts.mount(view,priority);}
-    @Override public void resume(){if(serverSide())LIVE.add(this);super.resume();if(serverSide())refreshPeers();}
-    @Override public void unload(){if(serverSide())LIVE.remove(this);super.unload();if(serverSide())refreshPeers();}
+    @Override public void resume(){if(serverSide())LIVE.add(this);super.resume();if(serverSide())refreshPeers(this);}
+    @Override public void unload(){if(serverSide())LIVE.remove(this);super.unload();if(serverSide()){refreshPeers(this);invalidateView(false);}}
     private boolean serverSide(){return host.cellsLevel()!=null&&!host.cellsLevel().isClientSide;}
-    @Override protected void onSettingsChanged(){if(!serverSide())return;if(host.cellsNode().isReady())IStorageProvider.requestUpdate(host.cellsNode());refreshPeers();}
-    private static void refreshPeers(){for(var p:List.copyOf(LIVE))p.invalidateView(false);}
+    @Override protected void onSettingsChanged(){if(!serverSide())return;if(host.cellsNode().isReady())IStorageProvider.requestUpdate(host.cellsNode());refreshPeers(this);}
+    private static void refreshPeers(ProxyLogic changed){
+        var origin=changed.originGrid();var destination=changed.destinationGrid();
+        for(var p:List.copyOf(LIVE))if(p.front()&&p.originGrid()==origin&&p.destinationGrid()==destination)p.invalidateView(false);
+    }
     private void invalidateView(boolean fromWatcher){
         refreshPending=true;
-        if(grid()!=null)grid().getStorageService().invalidateCache();
         if(AWConfigs.SERVER.cells.general.subnetProxyReportUpdateChurn.get()){
-            beginObservation();cacheInvalidations++;if(fromWatcher)watcherSignals++;
+            beginObservation();if(fromWatcher)watcherSignals++;
         }
     }
     private void beginObservation(){if(churnStart<0)churnStart=host.cellsLevel().getGameTime();}
     private void reportRefresh(boolean providerChanged){
         var config=AWConfigs.SERVER.cells.general;
         if(!config.subnetProxyReportUpdateChurn.get()){churnStart=-1;cacheInvalidations=watcherSignals=providerUpdates=0;return;}
-        beginObservation();cacheInvalidations++;if(providerChanged)providerUpdates++;
+        beginObservation();if(providerChanged)providerUpdates++;
         long now=host.cellsLevel().getGameTime();
         if(now-churnStart>=config.subnetProxyUpdateChurnLogDelay.get()*1200L){
             Aedialsworks.LOGGER.info("CELLS proxy {}: {} cache invalidations, {} storage signals, {} provider updates in {} ticks",stableId(),cacheInvalidations,watcherSignals,providerUpdates,now-churnStart);
@@ -86,7 +88,8 @@ public final class ProxyLogic extends AbstractCellsLogic implements IStorageProv
         boolean providerChanged=origin!=lastOrigin||destination!=lastDestination||!status.equals(lastStatus);
         if(providerChanged){lastOrigin=origin;lastDestination=destination;lastStatus=status;IStorageProvider.requestUpdate(host.cellsNode());changed();}
         boolean work=providerChanged||refreshPending;refreshPending=false;
-        if(destination!=null)destination.getStorageService().invalidateCache();reportRefresh(providerChanged);return work;
+        if(work&&destination!=null){destination.getStorageService().invalidateCache();if(AWConfigs.SERVER.cells.general.subnetProxyReportUpdateChurn.get())cacheInvalidations++;}
+        reportRefresh(providerChanged);return work;
     }
     @Override public CompoundTag snapshot(int port,int page){var n=super.snapshot(port,page);n.putString("guard",guardStatus());n.putBoolean("insertion",installed("insertion_card"));return n;}
     private final class View implements MEStorage {

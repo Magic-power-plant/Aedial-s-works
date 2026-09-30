@@ -1,8 +1,10 @@
 package com.mpp.aedialsworks.common.recipe;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -19,7 +21,7 @@ public final class MachineConversionRecipe extends CustomRecipe {
     @Override public boolean canCraftInDimensions(int w,int h){return w*h>=1;}
     @Override public RecipeSerializer<?> getSerializer(){return AWRecipeSerializers.MACHINE_CONVERSION.get();}
     public static final class Serializer implements RecipeSerializer<MachineConversionRecipe>{
-        public MachineConversionRecipe fromJson(ResourceLocation id,JsonObject n){return new MachineConversionRecipe(id,Ingredient.fromJson(n.getAsJsonArray("ingredients").get(0)),ShapedRecipe.itemStackFromJson(n.getAsJsonObject("result")));}
+        public MachineConversionRecipe fromJson(ResourceLocation id,JsonObject n){var ingredients=GsonHelper.getAsJsonArray(n,"ingredients");if(ingredients.size()!=1||ingredients.get(0).isJsonNull())throw new JsonSyntaxException("machine_conversion requires exactly one non-null ingredient");return new MachineConversionRecipe(id,Ingredient.fromJson(ingredients.get(0)),ShapedRecipe.itemStackFromJson(n.getAsJsonObject("result")));}
         public MachineConversionRecipe fromNetwork(ResourceLocation id,FriendlyByteBuf b){return new MachineConversionRecipe(id,Ingredient.fromNetwork(b),b.readItem());}
         public void toNetwork(FriendlyByteBuf b,MachineConversionRecipe r){r.input.toNetwork(b);b.writeItem(r.output);}
     }

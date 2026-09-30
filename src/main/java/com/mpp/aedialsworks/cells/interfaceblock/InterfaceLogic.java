@@ -24,24 +24,27 @@ public final class InterfaceLogic extends AbstractCellsLogic {
     public int transferInterval=1;
     private long lastTransfer=-1;
     private final Map<AEKey,Long> pending=new LinkedHashMap<>();
-    private void retain(AEKey key,long amount){if(amount>0){pending.merge(key,amount,Math::addExact);changed();}}
+    private void retain(AEKey key,long amount){if(amount>0){pending.merge(key,amount,CellMath::add);changed();}}
     public InterfaceLogic(CellsHost host){super(host);var kind=host.cellsKind();for(boolean output:new boolean[]{false,true})if(output?kind.output:kind.input){if(kind.items)ports.add(new ResourcePort(this,output,false));if(kind.fluids)ports.add(new ResourcePort(this,output,true));}}
     public void storageChanged(){changed();}
     public <T> LazyOptional<T> capability(Capability<T> cap){if(cap==ForgeCapabilities.ITEM_HANDLER&&host.cellsKind().items)return itemCapability.cast();if(cap==ForgeCapabilities.FLUID_HANDLER&&host.cellsKind().fluids)return fluidCapability.cast();return LazyOptional.empty();}
-    @Override public void resume(){if(unloaded()){itemCapability=LazyOptional.of(ItemView::new);fluidCapability=LazyOptional.of(FluidView::new);}super.resume();}
+    @Override public void resume(){itemPorts=fluidPorts=null;if(unloaded()){itemCapability=LazyOptional.of(ItemView::new);fluidCapability=LazyOptional.of(FluidView::new);}super.resume();}
     @Override public void unload(){super.unload();itemCapability.invalidate();fluidCapability.invalidate();}
     @Override public boolean tick(){
         if(!active()||grid()==null)return false;boolean worked=false;var storage=grid().getStorageService().getInventory();
         var retry=pending.entrySet().iterator();while(retry.hasNext()){var row=retry.next();long moved=StorageHelper.poweredInsert(grid().getEnergyService(),storage,row.getKey(),row.getValue(),source);if(moved>0){if(moved==row.getValue())retry.remove();else row.setValue(row.getValue()-moved);changed();worked=true;}}
-        for(var port:ports)for(int i=0;i<ResourcePort.MAX_SLOTS;i++){
-            var key=port.keys[i];long amount=port.amounts[i];
-            boolean stale=port.output&&(i>=port.activeSlots()||port.filters[i]==null||key!=null&&!key.equals(port.filters[i]));
-            if(key!=null&&amount>0&&(!port.output||stale)){
-                long moved=StorageHelper.poweredInsert(grid().getEnergyService(),storage,key,amount,source);
-                if(moved>0){port.extract(i,moved,false);worked=true;}
+        for(var port:ports){
+            for(int i=port.occupied.nextSetBit(0);i>=0;i=port.occupied.nextSetBit(i+1)){
+                var key=port.keys[i];long amount=port.amounts[i];
+                boolean stale=port.output&&(i>=port.activeSlots()||port.filters[i]==null||key!=null&&!key.equals(port.filters[i]));
+                if(key!=null&&amount>0&&(!port.output||stale)){
+                    long moved=StorageHelper.poweredInsert(grid().getEnergyService(),storage,key,amount,source);
+                    if(moved>0){port.extract(i,moved,false);worked=true;}
+                }
             }
-            if(port.output&&i<port.activeSlots()&&port.filters[i]!=null&&(port.keys[i]==null||port.keys[i].equals(port.filters[i]))){
-                key=port.filters[i];long room=Math.max(0,port.limit(i)-port.amounts[i]);
+            for(int i=0;i<port.activeSlots();i++){
+                if(!port.output||port.filters[i]==null||port.keys[i]!=null&&!port.keys[i].equals(port.filters[i]))continue;
+                var key=port.filters[i];long room=Math.max(0,port.limit(i)-port.amounts[i]);
                 if(room>0&&port.accepts(i,key)){long got=StorageHelper.poweredExtraction(grid().getEnergyService(),storage,key,room,source);if(got>0){port.insert(i,key,got,false,true);worked=true;}}
             }
         }
@@ -71,11 +74,15 @@ public final class InterfaceLogic extends AbstractCellsLogic {
         if(action.equals("port_filter")||action.equals("port_settings")){
             int selected=n.getInt("port");if(selected<0||selected>=ports.size())return false;var port=ports.get(selected);
             if(action.equals("port_filter")){int i=n.getInt("slot");if(i<0||i>=port.activeSlots())return false;var key=n.contains("key")?AEKey.fromTagGeneric(n.getCompound("key")):null;if(key!=null&&!port.channel(key))return false;port.filters[i]=key;port.limits[i]=Math.max(0,n.getLong("limit"));}
-            else{port.maxSlot=Math.max(1,n.getLong("maxSlot"));transferQuantity=Math.max(1,n.getLong("transferQuantity"));keepQuantity=Math.max(0,n.getLong("keepQuantity"));transferInterval=Math.max(1,n.getInt("transferInterval"));}
+            else{port.maxSlot=Math.max(1,Math.min(Long.MAX_VALUE/2,n.getLong("maxSlot")));transferQuantity=Math.max(1,Math.min(1000000000L,n.getLong("transferQuantity")));keepQuantity=Math.max(0,Math.min(Long.MAX_VALUE/2,n.getLong("keepQuantity")));transferInterval=Math.max(1,Math.min(1200,n.getInt("transferInterval")));}
             settingsChanged();return true;
         }return super.configure(p,action,n);
     }
-    private List<ResourcePort> channelPorts(boolean fluid){return ports.stream().filter(p->p.fluid==fluid).toList();}
+    private List<ResourcePort> itemPorts,fluidPorts;
+    private List<ResourcePort> channelPorts(boolean fluid){
+        if(fluid){if(fluidPorts==null)fluidPorts=ports.stream().filter(p->p.fluid).toList();return fluidPorts;}
+        if(itemPorts==null)itemPorts=ports.stream().filter(p->!p.fluid).toList();return itemPorts;
+    }
     private final class ItemView implements IItemHandler {
         private List<ResourcePort> list(){return channelPorts(false);}
         public int getSlots(){return list().size()*ResourcePort.MAX_SLOTS;}

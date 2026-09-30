@@ -173,6 +173,13 @@
     }
   },
   "text": {
+    "dialog_title": {
+      "position": {
+        "left": 8,
+        "top": 5
+      },
+      "scale": 0.6
+    },
     "resource": {
       "position": {
         "left": 25,

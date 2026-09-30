@@ -31,8 +31,8 @@ public final class AWDataGenerators {
                 @Override protected void addTranslations() {
                     add(AWCreativeTabs.TITLE_KEY, "Aedial's Works");
                     add("gui.aedialsworks.widgets.scroll", switch (locale) {
-                        case "zh_cn" -> "婊氬姩鍒楄〃";
-                        case "ru_ru" -> "袩褉芯泻褉褍褌泻邪 褋锌懈褋泻邪";
+                        case "zh_cn" -> "\u6eda\u52a8\u5217\u8868";
+                        case "ru_ru" -> "\u041f\u0440\u043e\u043a\u0440\u0443\u0442\u043a\u0430 \u0441\u043f\u0438\u0441\u043a\u0430";
                         default -> "Scroll list";
                     });
                     MODULES.forEach(module -> module.language(locale, this));

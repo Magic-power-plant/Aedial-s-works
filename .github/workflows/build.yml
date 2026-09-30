@@ -1,0 +1,38 @@
+name: Build and verify P0-P3
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Generate resources
+        run: bash ./gradlew runData --no-daemon --console=plain
+      - name: Check generated resources are committed
+        run: |
+          git diff --exit-code -- src/generated/resources
+          test -z "$(git ls-files --others --exclude-standard src/generated/resources)"
+      - name: Compile, test and reobfuscate
+        run: bash ./gradlew build --no-daemon --console=plain
+      - name: Dedicated-server smoke tests
+        run: bash ./gradlew runGameTestServer --no-daemon --console=plain
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aedialsworks
+          path: build/libs/*.jar
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: build/reports/tests/test/

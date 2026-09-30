@@ -10,16 +10,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public final class Ae2GridIdentity {
     private static final Map<IGrid,Long> IDS=Collections.synchronizedMap(new WeakHashMap<>());
     private Ae2GridIdentity() {}
-    public static long id(IGrid grid){return IDS.computeIfAbsent(grid,Ae2GridIdentity::derive);}
+    public static long id(IGrid grid){Long cached=IDS.get(grid);if(cached!=null)return cached;long derived=derive(grid);if(derived!=0)IDS.put(grid,derived);return derived;}
     private static long derive(IGrid grid){
         String anchor=null;
         for(var node:grid.getNodes()){
             var owner=node.getOwner();var be=owner instanceof BlockEntity block?block:owner instanceof AEBasePart part?part.getBlockEntity():null;
             if(be==null || be.getLevel()==null)continue;
-            String key=be.getLevel().dimension().location()+":"+be.getBlockPos().toShortString()+":"+owner.getClass().getName()+(owner instanceof AEBasePart part?":"+part.getSide():"");
+            String key=be.getLevel().dimension().location()+":"+be.getBlockPos().toShortString();
             if(anchor==null || key.compareTo(anchor)<0)anchor=key;
         }
-        if(anchor==null)return Integer.toUnsignedLong(System.identityHashCode(grid))+1;
+        if(anchor==null)return 0;
         long result=UUID.nameUUIDFromBytes(anchor.getBytes(StandardCharsets.UTF_8)).getMostSignificantBits() & Long.MAX_VALUE;
         return result==0?1:result;
     }

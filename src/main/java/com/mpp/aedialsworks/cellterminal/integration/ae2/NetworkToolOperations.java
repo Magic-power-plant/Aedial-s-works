@@ -11,14 +11,22 @@ import net.minecraft.world.item.ItemStack;
 /** Mutate detached NBT copies, verify conservation, then atomically install on the server thread. */
 public final class NetworkToolOperations {
     private NetworkToolOperations() {}
-    public static void massPartition(List<AbstractTerminalTarget> targets) {
+    public static boolean massPartition(List<AbstractTerminalTarget> targets) {
+        var staged=new ArrayList<List<AEKey>>();var active=new ArrayList<AbstractTerminalTarget>();
         for(var target:targets) {
             var contents=new KeyCounter();var inventory=target.storage();
-            if(inventory==null)continue; inventory.getAvailableStacks(contents);
+            if(inventory==null)return false;
+            inventory.getAvailableStacks(contents);
             var keys=new ArrayList<>(contents.keySet());keys.sort(Comparator.comparing(key->key.toTagGeneric().toString()));
-            target.clearPartition();int slot=0;
-            for(var key:keys) { if(slot>=target.partitionSize())break; if(target.setPartition(slot,key))slot++; }
+            if(keys.size()>target.partitionSize())return false;
+            for(var key:keys)if(!target.isPartitionAllowed(key))return false;
+            staged.add(keys);active.add(target);
         }
+        for(int i=0;i<active.size();i++) {
+            var target=active.get(i);target.clearPartition();int slot=0;
+            for(var key:staged.get(i)) { if(slot>=target.partitionSize())return false; if(!target.setPartition(slot++,key))return false; }
+        }
+        return true;
     }
     public static boolean attributeUnique(List<AbstractTerminalTarget> targets,IActionSource source) {
         var working=new ArrayList<ItemStack>();var originals=new ArrayList<ItemStack>();var active=new ArrayList<AbstractTerminalTarget>();

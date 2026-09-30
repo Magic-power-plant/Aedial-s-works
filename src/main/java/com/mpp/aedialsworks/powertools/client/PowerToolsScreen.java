@@ -80,6 +80,7 @@ public final class PowerToolsScreen extends AEBaseScreen<PowerToolsMenu> {
     private boolean crafter() { return menu.host.powerKind().equals("auto_crafter"); }
     private boolean maintainer() { return menu.host.powerKind().equals("better_level_maintainer"); }
     private boolean remote() { return menu.host.powerKind().equals("remote_storage_monitor"); }
+    private boolean emitter() { return menu.host.powerKind().equals("storage_level_emitter"); }
     private boolean tuner() { return menu.host.powerKind().equals("priority_tuner"); }
     private Component tr(String key) { return Component.translatable("gui.aedialsworks.powertools." + key); }
     private Component fit(Component label, int width) { return Component.literal(font.plainSubstrByWidth(label.getString(), width)); }
@@ -113,11 +114,11 @@ public final class PowerToolsScreen extends AEBaseScreen<PowerToolsMenu> {
     }
     private void setupMonitor() {
         inventoryButton(); widgets.add("settings", new TabButton(Icon.SCHEDULING_DEFAULT, tr("settings"), ignored -> open(View.SETTINGS)));
-        if (view == View.MONITOR) {
-            threshold = number("threshold", false, this::saveThreshold);
+        if (view == View.MONITOR || view == View.REMOTE) {
+            if (view == View.MONITOR) threshold = number("threshold", false, this::saveThreshold);
             icon("mode", () -> menu.data.getBoolean("any") ? Icon.REDSTONE_HIGH : Icon.REDSTONE_LOW, tr("match_mode"), () -> changeSetting("any"));
             icon("hysteresis", () -> menu.data.getBoolean("hysteresis") ? Icon.BLOCKING_MODE_YES : Icon.BLOCKING_MODE_NO, tr("hysteresis"), () -> changeSetting("hysteresis"));
-        } else icon("refresh", Icon.SCHEDULING_DEFAULT, "scan", () -> menu.action("settings", settings()));
+        }
         if (remote()) icon("binding", Icon.VIEW_MODE_ALL, "hud", () -> changeSetting("hud"));
         else if (menu.host.powerKind().equals("storage_level_alarm")) icon("binding", Icon.REDSTONE_PULSE, "bind", () -> menu.action("bind", new CompoundTag()));
     }
@@ -146,7 +147,7 @@ public final class PowerToolsScreen extends AEBaseScreen<PowerToolsMenu> {
         backButton(); interval = number("interval", false, this::saveSettings); secondary = number("secondaryInput", false, this::saveSettings);
         strength = number("strengthInput", false, this::saveSettings);
         if (crafter()) { setTextContent("secondary", tr("batch")); strength.visible = false; setTextHidden("ticks", true); }
-        else if (remote()) { strength.visible = false; setTextHidden("ticks", true); }
+        else { if (!emitter()) strength.visible = false; if (remote()) setTextHidden("ticks", true); }
         icon("save", Icon.ENTER, "save", () -> { if (saveSettings()) back(); });
     }
     private void setupSelector() {
@@ -257,7 +258,7 @@ public final class PowerToolsScreen extends AEBaseScreen<PowerToolsMenu> {
     private boolean saveEntry() {
         try {
             long amount = Long.parseLong(threshold.getValue()), value = Long.parseLong(secondary.getValue()); int ticks = Integer.parseInt(interval.getValue());
-            if (ticks < (crafter() ? 1 : 20) || ticks > (crafter() ? 72000 : maintainer() ? Integer.MAX_VALUE : 1200)
+            if (ticks < (crafter() ? com.mpp.aedialsworks.powertools.crafter.CrafterLogic.MIN_SPEED_TICKS : 20) || ticks > (crafter() ? 72000 : maintainer() ? Integer.MAX_VALUE : 1200)
                     || (maintainer() || crafter()) && value < 1 || crafter() && value > 1000000) { invalid(); return false; }
             var entry = entry(); entry.putLong("threshold", amount); entry.putLong("reset", value); entry.putLong("batch", value); entry.putInt("interval", ticks); sendEntry(entry);
             if (crafter()) sendCrafterSettings(ticks, (int) value);
@@ -272,7 +273,7 @@ public final class PowerToolsScreen extends AEBaseScreen<PowerToolsMenu> {
         try {
             int ticks = Integer.parseInt(interval.getValue()); long value = Long.parseLong(secondary.getValue());
             if (crafter()) {
-                if (ticks < 1 || ticks > 72000 || value < 1 || value > 1000000) { invalid(); return false; } sendCrafterSettings(ticks, (int) value);
+                if (ticks < com.mpp.aedialsworks.powertools.crafter.CrafterLogic.MIN_SPEED_TICKS || ticks > 72000 || value < 1 || value > 1000000) { invalid(); return false; } sendCrafterSettings(ticks, (int) value);
             } else {
                 int signal = Integer.parseInt(strength.getValue()); if (ticks < 20 || ticks > 1200 || signal < 1 || signal > 15) { invalid(); return false; }
                 var settings = settings(); settings.putInt("refresh", ticks); settings.putInt("strength", signal); menu.action("settings", settings);

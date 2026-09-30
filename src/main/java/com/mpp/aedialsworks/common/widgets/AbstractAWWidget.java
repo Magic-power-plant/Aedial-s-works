@@ -32,7 +32,7 @@ public abstract class AbstractAWWidget extends AbstractWidget implements IWidget
     }
 
     @Override public final void tick() {
-        if (!closed) onTick();
+        if (!closed && isVisible()) onTick();
     }
 
     protected void onTick() {}

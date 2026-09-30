@@ -962,41 +962,20 @@ public class AdvancedSearchParser {
     }
 
     /**
-     * Convert a glob pattern (with * and ?) to a regex pattern.
-     * * matches any sequence of characters, ? matches a single character.
+     * Iterative glob match without regex: * spans any sequence, ? one character.
+     * Two-pointer scan with star retry is O(n*m) worst case, never exponential.
      */
-    private static String globToRegex(String glob) {
-        StringBuilder regex = new StringBuilder();
-        for (int i = 0; i < glob.length(); i++) {
-            char c = glob.charAt(i);
-            switch (c) {
-                case '*':
-                    regex.append(".*");
-                    break;
-                case '?':
-                    regex.append(".");
-                    break;
-                // Escape regex special characters
-                case '.':
-                case '+':
-                case '^':
-                case '$':
-                case '[':
-                case ']':
-                case '(':
-                case ')':
-                case '{':
-                case '}':
-                case '|':
-                case '\\':
-                    regex.append("\\").append(c);
-                    break;
-                default:
-                    regex.append(c);
-            }
+    static boolean globMatches(String pattern, String value) {
+        int p = 0, v = 0, star = -1, mark = 0;
+        while (v < value.length()) {
+            if (p < pattern.length() && (pattern.charAt(p) == '?' || pattern.charAt(p) == value.charAt(v))) { p++; v++; }
+            else if (p < pattern.length() && pattern.charAt(p) == '*') { star = p++; mark = v; }
+            else if (star >= 0) { p = star + 1; v = ++mark; }
+            else return false;
         }
+        while (p < pattern.length() && pattern.charAt(p) == '*') p++;
 
-        return regex.toString();
+        return p == pattern.length();
     }
 
     /**
@@ -1014,19 +993,19 @@ public class AdvancedSearchParser {
 
         switch (operator) {
             case "=":
-                if (hasWild) return actual.matches(globToRegex(expected));
+                if (hasWild) return globMatches(expected, actual);
 
                 return actual.equals(expected);
 
             case "!=":
-                if (hasWild) return !actual.matches(globToRegex(expected));
+                if (hasWild) return !globMatches(expected, actual);
 
                 return !actual.equals(expected);
 
             case "~":
             default:
                 // For contains with wildcards, allow partial match
-                if (hasWild) return actual.matches(".*" + globToRegex(expected) + ".*");
+                if (hasWild) return globMatches("*" + expected + "*", actual);
 
                 return actual.contains(expected);
         }

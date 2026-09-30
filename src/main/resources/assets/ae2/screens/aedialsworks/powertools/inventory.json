@@ -175,6 +175,13 @@
     }
   },
   "text": {
+    "dialog_title": {
+      "position": {
+        "left": 8,
+        "top": 0
+      },
+      "scale": 0.7
+    },
     "inventory": {
       "position": {
         "left": 8,

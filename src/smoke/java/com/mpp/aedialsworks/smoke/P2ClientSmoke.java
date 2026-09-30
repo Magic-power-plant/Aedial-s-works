@@ -59,7 +59,7 @@ public final class P2ClientSmoke {
         if(phase==2){if(!ready||ticks<100)return;server(p->{connect(p);open(p,0);});phase=3;ticks=0;return;}
         if(phase==3){
             if(!(mc.screen instanceof PowerToolsScreen)||!(mc.player.containerMenu instanceof PowerToolsMenu menu)||menu.data.isEmpty()||ticks<25)return;
-            if(index==3)require(menu.data.getList("entries",Tag.TAG_COMPOUND).getCompound(1).getLong("threshold")==((1L<<40)+(nativeInputStage>=2?17:0)),"Long fluid threshold survives menu sync");
+            if(index==3)require(menu.data.getList("entries",Tag.TAG_COMPOUND).getCompound(1).getLong("threshold")==(nativeInputStage>=2?999_999_999L:1_000_000_000L),"Long fluid threshold survives menu sync");
             require(mc.screen instanceof appeng.client.gui.AEBaseScreen<?>, "AE2 native screen: "+NAMES.get(index));
             require(menu.slots.size()==(index==1?71:index<9||index==12?60:36),"Slot topology: "+NAMES.get(index));
             if(index<9&&index!=1||index==12){
@@ -78,17 +78,17 @@ public final class P2ClientSmoke {
                     screen.mouseClicked(screen.getGuiLeft()+94,screen.getGuiTop()+27,0);
                     nativeInputStage=1;return;
                 }
-                require(field.getValue().equals(Long.toString(1L<<40)),"Native field preserves long fluid threshold");
+                require(field.getValue().equals(Long.toString(1_000_000_000L)),"Native field preserves long fluid threshold");
                 screen.mouseClicked(field.getX()+2,field.getY()+2,0);
                 screen.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_E,0,0);
                 require(mc.screen==screen,"Native number field consumes inventory hotkey");
-                field.setValue(Long.toString((1L<<40)+17));
+                field.setValue(Long.toString(999_999_999L));
                 screen.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER,0,0);
                 require(mc.screen==screen,"Native number field confirms without closing");
                 nativeInputStage=2;ticks=0;return;
             }
             if(index==3&&nativeInputStage>=2&&nativeInputStage<6){
-                if(nativeInputStage==2){server(p->{var logic=(MonitorLogic)((PowerBlockEntity)p.level().getBlockEntity(new BlockPos(3,64,0))).logic();require(logic.settings.entries[1].threshold==(1L<<40)+17,"Native Enter saves long quantity on server");nativeRoundTripChecked=true;});nativeInputStage=3;return;}
+                if(nativeInputStage==2){server(p->{var logic=(MonitorLogic)((PowerBlockEntity)p.level().getBlockEntity(new BlockPos(3,64,0))).logic();require(logic.settings.entries[1].threshold==999_999_999L,"Native Enter saves long quantity on server");nativeRoundTripChecked=true;});nativeInputStage=3;return;}
                 if(!nativeRoundTripChecked)return;
                 int inventorySlot=menu.getSlots(appeng.menu.SlotSemantics.PLAYER_HOTBAR).get(0).index;
                 if(nativeInputStage==3){click((PowerToolsScreen)mc.screen,"inventoryButton");require(((PowerToolsScreen)mc.screen).currentView()==PowerToolsScreen.View.INVENTORY,"Native inventory child page");mc.gameMode.handleInventoryMouseClick(menu.containerId,inventorySlot,0,net.minecraft.world.inventory.ClickType.PICKUP,mc.player);nativeInputStage=4;ticks=0;return;}
@@ -162,7 +162,7 @@ public final class P2ClientSmoke {
         var level=p.serverLevel();for(int x=-3;x<=13;x++)for(int z=-8;z<=5;z++)for(int y=63;y<=67;y++)level.setBlockAndUpdate(new BlockPos(x,y,z),y==63?Blocks.STONE.defaultBlockState():Blocks.AIR.defaultBlockState());
         p.setGameMode(GameType.CREATIVE);p.getAbilities().flying=true;p.onUpdateAbilities();p.teleportTo(level,2.5,65,-1.5,0,15);p.getInventory().clearContent();
         var blocks=List.of(AWBlocks.BETTER_LEVEL_MAINTAINER.get(),AWBlocks.AUTO_CRAFTER.get(),AWBlocks.STORAGE_LEVEL_EMITTER.get(),AWBlocks.STORAGE_DISPLAY.get(),AWBlocks.STORAGE_LEVEL_ALARM.get());
-        for(int i=0;i<blocks.size();i++){var pos=new BlockPos(i,64,0);level.setBlockAndUpdate(pos,blocks.get(i).defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING,Direction.NORTH));var be=(PowerBlockEntity)level.getBlockEntity(pos);if(be.logic() instanceof MonitorLogic m){m.settings.entries[0].key=AEItemKey.of(Items.IRON_INGOT);m.settings.entries[0].threshold=100;m.settings.entries[1].key=AEFluidKey.of(net.minecraft.world.level.material.Fluids.WATER);m.settings.entries[1].threshold=1L<<40;if(i==3)m.settings.entries[1].comparison=Comparison.GREATER;be.powerChanged();}}
+        for(int i=0;i<blocks.size();i++){var pos=new BlockPos(i,64,0);level.setBlockAndUpdate(pos,blocks.get(i).defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING,Direction.NORTH));var be=(PowerBlockEntity)level.getBlockEntity(pos);if(be.logic() instanceof MonitorLogic m){m.settings.entries[0].key=AEItemKey.of(Items.IRON_INGOT);m.settings.entries[0].threshold=100;m.settings.entries[1].key=AEFluidKey.of(net.minecraft.world.level.material.Fluids.WATER);m.settings.entries[1].threshold=1_000_000_000L;if(i==3)m.settings.entries[1].comparison=Comparison.GREATER;be.powerChanged();}}
         var parts=List.of(AWItems.STORAGE_LEVEL_EMITTER_PART.get(),AWItems.STORAGE_DISPLAY_PART.get(),AWItems.STORAGE_DISPLAY_PART_SMALLER.get(),AWItems.STORAGE_DISPLAY_PART_SMALLERER.get());
         for(int i=0;i<parts.size();i++){var part=PartHelper.setPart(level,new BlockPos(8+i,64,0),Direction.NORTH,p,parts.get(i));part.logic.settings.entries[0].key=AEItemKey.of(Items.DIAMOND);part.logic.settings.entries[0].threshold=64;part.powerChanged();}
         var maintainer=(com.mpp.aedialsworks.powertools.maintainer.MaintainerLogic)((PowerBlockEntity)level.getBlockEntity(new BlockPos(0,64,0))).logic();

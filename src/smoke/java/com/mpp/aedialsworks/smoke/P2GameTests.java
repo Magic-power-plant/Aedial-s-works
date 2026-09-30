@@ -43,14 +43,14 @@ public final class P2GameTests {
     @GameTest(template="empty") public static void registrationRecipesAndLongMonitorSemantics(GameTestHelper h){
         h.assertTrue(AWItems.ITEMS.getEntries().size()>=21,"P1 two items plus P2 nineteen items");
         for(var e:AWBlocks.BLOCKS.getEntries())if(!AWCells.BLOCKS.containsValue(e))h.assertTrue(h.getLevel().getRecipeManager().byKey(e.getId()).isPresent(),"Every machine has a recipe: "+e.getId());
-        var m=new MonitorSettings();var a=m.entries[0];a.key=AEItemKey.of(Items.IRON_INGOT);a.threshold=1L<<40;a.resetThreshold=a.threshold+100;
+        var m=new MonitorSettings();var a=m.entries[0];a.key=AEItemKey.of(Items.IRON_INGOT);a.threshold=1_000_000_000L;a.resetThreshold=a.threshold-100;
         h.assertTrue(m.evaluate(k->0,true),"Default LESS triggers below threshold");h.assertFalse(m.evaluate(k->Long.MAX_VALUE,true),"Long quantities never overflow");
         m.entries[1].key=AEFluidKey.of(Fluids.WATER);m.entries[1].threshold=1000;
         h.assertFalse(m.evaluate(k->k.equals(a.key)?Long.MAX_VALUE:0,true),"AND across item/fluid");m.any=true;h.assertTrue(m.evaluate(k->k.equals(a.key)?Long.MAX_VALUE:0,true),"OR across item/fluid");
         h.assertFalse(m.evaluate(k->0,false),"Offline monitor never emits");
-        m.any=false;m.entries[1].key=null;m.hysteresis=true;a.threshold=64;a.resetThreshold=96;a.met=false;
-        h.assertTrue(m.evaluate(k->32,true)&&m.evaluate(k->80,true),"Hysteresis holds alarm until reset bound");h.assertFalse(m.evaluate(k->96,true),"Reset bound clears alarm");a.threshold=1L<<40;
-        var blank=new PowerBlockEntity(AWBlockEntities.AUTO_CRAFTER.get(),BlockPos.ZERO,AWBlocks.AUTO_CRAFTER.get().defaultBlockState());blank.logic().load(new CompoundTag());h.assertTrue(((CrafterLogic)blank.logic()).patterns.getSlots()==12&&((CrafterLogic)blank.logic()).upgrades.getSlots()==4,"Empty legacy NBT preserves inventory topology");var n=new CompoundTag();m.save(n);var copy=new MonitorSettings();copy.load(n);h.assertTrue(copy.entries[0].threshold==1L<<40,"Long target persists");h.succeed();
+        m.any=false;m.entries[1].key=null;m.hysteresis=true;a.threshold=64;a.resetThreshold=48;a.met=false;
+        h.assertTrue(m.evaluate(k->32,true)&&m.evaluate(k->56,true),"Hysteresis holds alarm inside the band");h.assertFalse(m.evaluate(k->64,true),"Threshold bound clears alarm");a.met=false;h.assertFalse(m.evaluate(k->50,true),"Reset bound blocks retrigger inside the band");a.threshold=1_000_000_000L;
+        var blank=new PowerBlockEntity(AWBlockEntities.AUTO_CRAFTER.get(),BlockPos.ZERO,AWBlocks.AUTO_CRAFTER.get().defaultBlockState());blank.logic().load(new CompoundTag());h.assertTrue(((CrafterLogic)blank.logic()).patterns.getSlots()==12&&((CrafterLogic)blank.logic()).upgrades.getSlots()==4,"Empty legacy NBT preserves inventory topology");var n=new CompoundTag();m.save(n);var copy=new MonitorSettings();copy.load(n);h.assertTrue(copy.entries[0].threshold==1_000_000_000L,"Long target persists");h.succeed();
     }
     @GameTest(template="empty",timeoutTicks=180) public static void crafterTwelveSlotsSpeedAndConservation(GameTestHelper h){
         network(h,AWBlocks.AUTO_CRAFTER.get());
@@ -81,7 +81,7 @@ public final class P2GameTests {
         network(h,AWBlocks.STORAGE_LEVEL_EMITTER.get());
         h.runAfterDelay(60,()->{var be=machine(h);var monitor=(MonitorLogic)be.logic();monitor.settings.entries[0].key=AEItemKey.of(Items.IRON_INGOT);monitor.settings.entries[0].threshold=64;monitor.settings.strength=7;monitor.refresh();h.assertTrue(be.signal()==7,"Configured redstone strength");
             be.getMainNode().getGrid().getStorageService().getInventory().insert(AEItemKey.of(Items.IRON_INGOT),64,Actionable.MODULATE,SOURCE);
-            for(var item:List.of(AWItems.STORAGE_LEVEL_EMITTER_PART.get(),AWItems.STORAGE_DISPLAY_PART.get(),AWItems.STORAGE_DISPLAY_PART_SMALLER.get(),AWItems.STORAGE_DISPLAY_PART_SMALLERER.get())){var part=item.createPart();part.logic.settings.entries[23].key=AEFluidKey.of(Fluids.WATER);part.logic.settings.entries[23].threshold=1L<<40;var n=new CompoundTag();part.writeToNBT(n);var copy=item.createPart();copy.readFromNBT(n);h.assertTrue(copy.logic.settings.entries[23].threshold==1L<<40,"All part types persist 24th fluid entry");}
+            for(var item:List.of(AWItems.STORAGE_LEVEL_EMITTER_PART.get(),AWItems.STORAGE_DISPLAY_PART.get(),AWItems.STORAGE_DISPLAY_PART_SMALLER.get(),AWItems.STORAGE_DISPLAY_PART_SMALLERER.get())){var part=item.createPart();part.logic.settings.entries[23].key=AEFluidKey.of(Fluids.WATER);part.logic.settings.entries[23].threshold=1_000_000_000L;var n=new CompoundTag();part.writeToNBT(n);var copy=item.createPart();copy.readFromNBT(n);h.assertTrue(copy.logic.settings.entries[23].threshold==1_000_000_000L,"All part types persist 24th fluid entry");}
         });
         h.runAfterDelay(70,()->{var p=h.makeMockPlayer();var part=PartHelper.setPart(h.getLevel(),h.absolutePos(new BlockPos(1,1,3)),Direction.NORTH,p,AWItems.STORAGE_LEVEL_EMITTER_PART.get());part.logic.settings.entries[0].key=AEItemKey.of(Items.IRON_INGOT);part.logic.settings.entries[0].threshold=64;part.logic.settings.strength=11;});
         h.runAfterDelay(85,()->{var part=(MonitorPart)PartHelper.getPart(h.getLevel(),h.absolutePos(new BlockPos(1,1,3)),Direction.NORTH);GridHelper.createConnection(machine(h).getMainNode().getNode(),part.getGridNode());});
@@ -89,8 +89,8 @@ public final class P2GameTests {
     }
     @GameTest(template="empty",timeoutTicks=180) public static void menuSessionPermissionsAndScanner(GameTestHelper h){
         network(h,AWBlocks.BETTER_LEVEL_MAINTAINER.get());h.runAfterDelay(65,()->{var be=machine(h);var player=net.minecraftforge.common.util.FakePlayerFactory.get(h.getLevel(),new com.mojang.authlib.GameProfile(UUID.randomUUID(),"P2MenuSecurity"));player.setPos(be.getBlockPos().getX()+.5,be.getBlockPos().getY()+.5,be.getBlockPos().getZ()+.5);player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
-            var nonce=UUID.randomUUID();var menu=new PowerToolsMenu(63,player.getInventory(),be,nonce);player.containerMenu=menu;var n=new CompoundTag();n.putInt("slot",23);n.put("key",AEItemKey.of(Items.DIAMOND).toTagGeneric());n.putLong("threshold",1L<<40);n.putLong("batch",1);n.putBoolean("enabled",true);n.putUUID("session",UUID.randomUUID());
-            menu.receiveClientAction(player,AWIds.id("entry"),n);h.assertTrue(((MaintainerLogic)be.logic()).entries[23].key==null,"Stale nonce rejected");n.putUUID("session",nonce);menu.receiveClientAction(player,AWIds.id("entry"),n);h.assertTrue(((MaintainerLogic)be.logic()).entries[23].threshold==1L<<40,"Valid long configuration accepted");
+            var nonce=UUID.randomUUID();var menu=new PowerToolsMenu(63,player.getInventory(),be,nonce);player.containerMenu=menu;var n=new CompoundTag();n.putInt("slot",23);n.put("key",AEItemKey.of(Items.DIAMOND).toTagGeneric());n.putLong("threshold",1_000_000_000L);n.putLong("batch",1);n.putBoolean("enabled",true);n.putUUID("session",UUID.randomUUID());
+            menu.receiveClientAction(player,AWIds.id("entry"),n);h.assertTrue(((MaintainerLogic)be.logic()).entries[23].key==null,"Stale nonce rejected");n.putUUID("session",nonce);menu.receiveClientAction(player,AWIds.id("entry"),n);h.assertTrue(((MaintainerLogic)be.logic()).entries[23].threshold==1_000_000_000L,"Valid long configuration accepted");
             menu.data=be.configuration().snapshot();menu.refreshConfigSlots();
             var config=menu.getConfigurationSlots();h.assertTrue(config.size()==24,"Native AE2 configuration slots are present");
             var icon=GenericStack.fromItemStack(config.get(23).getItem());h.assertTrue(icon!=null&&icon.what().equals(AEItemKey.of(Items.DIAMOND)),"Config slot reflects authoritative entry");
@@ -98,7 +98,7 @@ public final class P2GameTests {
             menu.doAction(player,appeng.helpers.InventoryAction.SET_FILTER,config.get(23).index,0);
             menu.clicked(config.get(23).index,0,net.minecraft.world.inventory.ClickType.PICKUP,player);
             h.assertTrue(GenericStack.fromItemStack(config.get(23).getItem()).what().equals(AEItemKey.of(Items.DIAMOND))&&menu.getCarried().isEmpty(),"Native slot actions cannot mutate or extract snapshot resources");
-            player.setGameMode(net.minecraft.world.level.GameType.ADVENTURE);n.putLong("threshold",1);menu.receiveClientAction(player,AWIds.id("entry"),n);h.assertTrue(((MaintainerLogic)be.logic()).entries[23].threshold==1L<<40,"Live permission checked");player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            player.setGameMode(net.minecraft.world.level.GameType.ADVENTURE);n.putLong("threshold",1);menu.receiveClientAction(player,AWIds.id("entry"),n);h.assertTrue(((MaintainerLogic)be.logic()).entries[23].threshold==1_000_000_000L,"Live permission checked");player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
             var scan=new NetworkScanner().scan(be.getMainNode().getGrid());h.assertTrue(scan.getList("nodes",Tag.TAG_COMPOUND).size()>=3&&NetworkScanner.TABS.size()==6,"Public graph scanner lists devices and six diagnostics");
             player.setPos(100000,100,100000);h.assertFalse(menu.stillValid(player),"Distance rechecked");player.containerMenu=player.inventoryMenu;h.succeed();
         });

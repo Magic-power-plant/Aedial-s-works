@@ -13,9 +13,10 @@ public final class DenseCellState extends AbstractCellState {
     private final LongLedger<AEKey> contents=new LongLedger<>();
     public DenseCellState(ItemStack stack,ISaveProvider provider){
         super(stack,provider);
-        for(var raw:stack.getOrCreateTag().getCompound("awCell").getList("contents",Tag.TAG_COMPOUND)){
+        var root=stack.getTag();if(root==null)return;
+        for(var raw:root.getCompound("awCell").getList("contents",Tag.TAG_COMPOUND)){
             var n=(CompoundTag)raw;var key=(n.contains("key")?AEKey.fromTagGeneric(n.getCompound("key")):null);
-            if(key==null)throw new IllegalArgumentException("Unknown persisted cell resource");
+            if(key==null){com.mpp.aedialsworks.Aedialsworks.LOGGER.warn("Skipping unparsable persisted cell resource");continue;}
             contents.restore(key,n.getLong("amount"));
         }
     }
@@ -25,9 +26,10 @@ public final class DenseCellState extends AbstractCellState {
         long capacity=CellMath.capacity(item.displayBytes(stack),item.overhead(stack),types,item.multiplier(stack),key.getAmountPerByte());
         long perType=Long.MAX_VALUE;
         if(CellUpgrades.value(upgrades,"equal_distribution_card_",0)>0)perType=CellMath.capacity(item.displayBytes(stack),item.overhead(stack),maximumTypes(),item.multiplier(stack),key.getAmountPerByte())/maximumTypes();
+        long stored=contents.get(key);
         long accepted=contents.insert(key,amount,capacity,maximumTypes(),perType,mode==Actionable.SIMULATE);
         if(accepted>0&&mode==Actionable.MODULATE)changed();
-        return overflow()?amount:accepted;
+        return canVoidOverflow(overflow(),stored)?amount:accepted;
     }
     @Override public long extract(AEKey key,long amount,Actionable mode,IActionSource source){
         MEStorage.checkPreconditions(key,amount,mode,source);long extracted=contents.extract(key,amount,mode==Actionable.SIMULATE);if(extracted>0&&mode==Actionable.MODULATE)changed();return extracted;

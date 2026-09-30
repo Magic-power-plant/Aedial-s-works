@@ -96,7 +96,7 @@ public final class CellTerminalMenu extends TerminalMenuAdapter implements Serve
         if(tab.bus() && pollBus){send(player,TerminalChannels.BUSES,list(buses));lastBus=tick;}
         send(player,TerminalChannels.STORAGES,list(storages));send(player,TerminalChannels.TEMP_CELLS,list(temporary));
         if(!tab.bus() && pollBus){send(player,TerminalChannels.BUSES,list(buses));lastBus=tick;}
-        send(player,TerminalChannels.SUBNETS,networks.snapshot());
+        if(tab==TerminalTab.SUBNETS)send(player,TerminalChannels.SUBNETS,networks.snapshot());
     }
     private static CompoundTag list(ListTag entries){var tag=new CompoundTag();tag.put("entries",entries);return tag;}
     private void send(ServerPlayer player,String channel,CompoundTag tag)throws IOException {
@@ -155,8 +155,7 @@ public final class CellTerminalMenu extends TerminalMenuAdapter implements Serve
             var selected=new ArrayList<AbstractTerminalTarget>();var ids=payload.getLongArray("ids");
             var tokens=payload.getLongArray("tokens");if(ids.length==0 || ids.length>256 || tokens.length!=ids.length)return;var unique=new HashSet<Long>();
             for(int i=0;i<ids.length;i++){long id=ids[i];var target=targets.get(id);if(!unique.add(id) || target==null || !target.valid(player) || !reachable(target) || !target.matches(tokens[i]) || target.kind().equals("temp")){feedback(player,"stale");return;}selected.add(target);}
-            boolean ok=true;
-            if(name.equals("attribute_unique"))ok=NetworkToolOperations.attributeUnique(selected,getActionSource());else NetworkToolOperations.massPartition(selected);
+            boolean ok=name.equals("attribute_unique")?NetworkToolOperations.attributeUnique(selected,getActionSource()):NetworkToolOperations.massPartition(selected);
             feedback(player,ok?"done":"insufficient_capacity");force=true;lastBus=-200;return;
         }
         var target=targets.get(payload.getLong("id"));

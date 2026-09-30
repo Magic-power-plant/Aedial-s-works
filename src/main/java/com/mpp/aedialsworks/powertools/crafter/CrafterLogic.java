@@ -7,6 +7,7 @@ import appeng.crafting.pattern.AECraftingPattern;
 import com.mpp.aedialsworks.powertools.*;
 import com.mpp.aedialsworks.powertools.items.CrafterSpeedUpgrade;
 import com.mpp.aedialsworks.common.config.AWConfigs;
+import com.mpp.aedialsworks.cells.cell.CellMath;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.player.Player;
@@ -19,6 +20,7 @@ import net.minecraftforge.items.ItemStackHandler;
 /** Twelve real pattern slots, fair scheduling, and bounded work per server tick. */
 public final class CrafterLogic extends AbstractPowerLogic {
     public static final int CAPACITY=12;
+    public static final int MIN_SPEED_TICKS=20;
     public final ItemStackHandler patterns=new ItemStackHandler(CAPACITY){
         @Override public int getSlotLimit(int slot){return 1;}
         @Override public boolean isItemValid(int slot,ItemStack stack){return PatternDetailsHelper.isEncodedPattern(stack);}
@@ -87,7 +89,7 @@ public final class CrafterLogic extends AbstractPowerLogic {
         buffer(resultKey,result.getCount());for(var stack:remaining)if(!stack.isEmpty())buffer(AEItemKey.of(stack),stack.getCount());
         changed();flush();status[slot]=pending.isEmpty()?"CRAFTED":"OUTPUT_FULL";return true;
     }
-    private void buffer(AEItemKey key,long amount){if(amount>0){pending.merge(key,amount,Math::addExact);changed();}}
+    private void buffer(AEItemKey key,long amount){if(amount>0){pending.merge(key,amount,CellMath::add);changed();}}
     private void flush(){if(grid()==null)return;var it=pending.entrySet().iterator();while(it.hasNext()){
         var e=it.next();long n=grid().getStorageService().getInventory().insert(e.getKey(),e.getValue(),Actionable.MODULATE,source);
         if(n>0){long left=e.getValue()-n;if(left==0)it.remove();else e.setValue(left);changed();}
@@ -105,12 +107,12 @@ public final class CrafterLogic extends AbstractPowerLogic {
     @Override public void load(CompoundTag tag){
         var savedPatterns=tag.getCompound("patterns").copy();savedPatterns.putInt("Size",CAPACITY);patterns.deserializeNBT(savedPatterns);
         var savedUpgrades=tag.getCompound("upgrades").copy();savedUpgrades.putInt("Size",4);upgrades.deserializeNBT(savedUpgrades);
-        speedTicks=Math.max(1,Math.min(72000,tag.getInt("speed")));batch=Math.max(1,Math.min(1000000,tag.getInt("batch")));clock=Math.max(0,tag.getLong("clock"));cursor=Math.floorMod(tag.getInt("cursor"),CAPACITY);
+        speedTicks=tag.contains("speed")?Math.max(MIN_SPEED_TICKS,Math.min(72000,tag.getInt("speed"))):MIN_SPEED_TICKS;batch=Math.max(1,Math.min(1000000,tag.getInt("batch")));clock=Math.max(0,tag.getLong("clock"));cursor=Math.floorMod(tag.getInt("cursor"),CAPACITY);
         pending.clear();for(var raw:tag.getList("pending",Tag.TAG_COMPOUND)){var n=(CompoundTag)raw;var key=AEKey.fromTagGeneric(n.getCompound("key"));if(key instanceof AEItemKey item && n.getLong("amount")>0)pending.put(item,n.getLong("amount"));}
-        var entries=tag.getList("entries",Tag.TAG_COMPOUND);for(int i=0;i<CAPACITY;i++){var n=entries.getCompound(i);enabled[i]=!n.contains("enabled")||n.getBoolean("enabled");target[i]=Math.max(0,n.getLong("target"));credit[i]=Math.max(0,n.getLong("credit"));status[i]="IDLE";}
+        var entries=tag.getList("entries",Tag.TAG_COMPOUND);for(int i=0;i<CAPACITY;i++){var n=entries.getCompound(i);enabled[i]=!n.contains("enabled")||n.getBoolean("enabled");target[i]=Math.max(0,n.getLong("target"));credit[i]=Math.max(0,n.getLong("credit"));var s=n.getString("state");status[i]=s.isEmpty()?"IDLE":s;}
     }
     @Override public boolean configure(ServerPlayer player,String action,CompoundTag n){
-        if(action.equals("settings")){speedTicks=Math.max(1,Math.min(72000,n.getInt("speed")));batch=Math.max(1,Math.min(1000000,n.getInt("batch")));changed();return true;}
+        if(action.equals("settings")){speedTicks=Math.max(MIN_SPEED_TICKS,Math.min(72000,n.getInt("speed")));batch=Math.max(1,Math.min(1000000,n.getInt("batch")));changed();return true;}
         int i=n.getInt("slot");if(i<0||i>=CAPACITY)return false;
         if(action.equals("entry")){enabled[i]=n.getBoolean("enabled");target[i]=Math.max(0,n.getLong("threshold"));credit[i]=0;changed();return true;}return false;
     }

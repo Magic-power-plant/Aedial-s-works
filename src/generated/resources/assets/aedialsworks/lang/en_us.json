@@ -195,7 +195,7 @@
   "config.cellterminal.gui.terminalStyle": "Terminal Style",
   "config.cellterminal.gui.terminalStyle.tooltip": "Terminal size style: SMALL (fixed 8 rows), TALL (expands to fill screen)",
   "config.cellterminal.gui.tooltip": "Cell Terminal GUI preferences",
-  "gui.aedialsworks.cells.BACK": "Origin side",
+  "gui.aedialsworks.cells.BACK_SIDE": "Origin side",
   "gui.aedialsworks.cells.CYCLE": "Blocked: cycle",
   "gui.aedialsworks.cells.NO_PAIR": "Not paired",
   "gui.aedialsworks.cells.OFFLINE": "Offline",

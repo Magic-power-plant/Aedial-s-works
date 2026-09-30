@@ -50,8 +50,11 @@ public abstract class AbstractTerminalTarget implements PartitionAccess, Priorit
         describe(tag); return tag;
     }
     public static ListTag contents(MEStorage inventory) {
-        var list=new ListTag(); if(inventory==null) return list;
-        var counter=new KeyCounter(); inventory.getAvailableStacks(counter);
+        var counter=new KeyCounter(); if(inventory!=null) inventory.getAvailableStacks(counter);
+        return contents(counter);
+    }
+    public static ListTag contents(KeyCounter counter) {
+        var list=new ListTag();
         var entries=new ArrayList<GenericStack>();
         for(var entry:counter) if(entry.getLongValue()>0) entries.add(new GenericStack(entry.getKey(),entry.getLongValue()));
         entries.sort(Comparator.comparing((GenericStack s)->s.what().getId().toString()).thenComparing(s->s.what().toTagGeneric().toString()));

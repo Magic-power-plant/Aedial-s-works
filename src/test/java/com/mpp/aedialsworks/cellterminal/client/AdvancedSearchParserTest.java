@@ -419,15 +419,33 @@ public class AdvancedSearchParserTest {
     @Test
     public void testParse_multipleConsecutiveOperators_returnsError() {
         AdvancedSearchParser.ParseResult result = AdvancedSearchParser.parse("?$priority>>5");
-        // Should handle gracefully - either error or parse as best as possible
-        // The tokenizer will split this, so behavior depends on implementation
+        // ">>" tokenizes as one operator token and normalizes to ">", so this parses as $priority>5
+        LegacyAssert.assertTrue("Expected '>>' to parse as best-effort '>'", result.isSuccess());
+        LegacyAssert.assertNotNull(result.getMatcher());
     }
 
     @Test
     public void testParse_operatorWithoutValue() {
         AdvancedSearchParser.ParseResult result = AdvancedSearchParser.parse("?$priority>&$items>0");
-        // Should handle missing value gracefully
-        LegacyAssert.assertTrue("Should parse with default value", result.isSuccess() || !result.getErrors().isEmpty());
+        // The missing value parses successfully with an empty value, so no errors are reported
+        LegacyAssert.assertTrue("Expected success with empty $priority value", result.isSuccess());
+        LegacyAssert.assertTrue("Expected no errors for missing value", result.getErrors().isEmpty());
+        LegacyAssert.assertNotNull(result.getMatcher());
+    }
+
+    @Test
+    public void testParse_missingNumericValue_comparesAgainstZero() {
+        AdvancedSearchParser.ParseResult result = AdvancedSearchParser.parse("?$priority>");
+        LegacyAssert.assertTrue("Expected success for trailing operator without value", result.isSuccess());
+        LegacyAssert.assertTrue("Expected no errors for missing value", result.getErrors().isEmpty());
+        AdvancedSearchParser.SearchMatcher matcher = result.getMatcher();
+        LegacyAssert.assertNotNull(matcher);
+        CompoundTag above = new CompoundTag(); above.putInt("priority", 5);
+        CompoundTag below = new CompoundTag(); below.putInt("priority", -1);
+        LegacyAssert.assertTrue("Missing value should compare against 0",
+            matcher.matchesCellFilter(null, new StorageInfo(above), SearchFilterMode.MIXED));
+        LegacyAssert.assertFalse("Negative priority should not match '>' with default 0",
+            matcher.matchesCellFilter(null, new StorageInfo(below), SearchFilterMode.MIXED));
     }
 
     @Test

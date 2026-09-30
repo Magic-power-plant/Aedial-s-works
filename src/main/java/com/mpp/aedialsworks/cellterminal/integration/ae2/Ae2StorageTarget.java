@@ -65,6 +65,7 @@ public final class Ae2StorageTarget extends AbstractTerminalTarget {
     }
     @Override public int partitionSize() { return config(cell()).size(); }
     @Override public AEKey partitionKey(int slot) { return config(cell()).getKey(slot); }
+    @Override public boolean isPartitionAllowed(AEKey key) { return key==null || config(cell()).isAllowed(key); }
     @Override public boolean setPartition(int slot,AEKey key) {
         persist(); var copy=cell().copy();var inv=config(copy);
         if(slot<0 || slot>=inv.size() || (key!=null && !inv.isAllowed(key))) return false;

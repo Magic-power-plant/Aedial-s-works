@@ -34,3 +34,5 @@ run-gametest/
 run-p2-smoke/
 
 run-p3-smoke/
+/docs/
+/tools/

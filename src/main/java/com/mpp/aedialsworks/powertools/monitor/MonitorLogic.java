@@ -24,7 +24,7 @@ public final class MonitorLogic extends AbstractPowerLogic implements IStorageWa
     public void refresh(){
         if(host.powerLevel()==null || host.powerLevel().isClientSide())return;
         boolean previous=settings.condition;long[] before=Arrays.stream(settings.entries).mapToLong(e->e.quantity).toArray();
-        var grid=grid();settings.evaluate(key->grid.getStorageService().getCachedInventory().get(key),grid!=null&&host.powerActive());dirty=false;
+        var grid=grid();settings.evaluate(key->{var cached=grid.getStorageService().getCachedInventory();long total=0;for(var fuzzy:cached.findFuzzy(key,appeng.api.config.FuzzyMode.IGNORE_ALL))total+=fuzzy.getLongValue();return total;},grid!=null&&host.powerActive());dirty=false;
         if(previous!=settings.condition)host.conditionChanged(settings.condition);
         if(previous!=settings.condition||!Arrays.equals(before,Arrays.stream(settings.entries).mapToLong(e->e.quantity).toArray()))changed();
         long now=host.powerLevel().getGameTime();

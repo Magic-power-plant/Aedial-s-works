@@ -28,10 +28,12 @@ public abstract class AbstractCellState implements StorageCell,CellCapacity {
         if(!item.family.enabled()||!item.keyType(stack).contains(key))return false;
         if(key instanceof AEItemKey i&&StorageCells.isCellHandled(i.toStack()))return false;
         var selected=item.getConfigInventory(stack).keySet();
-        String tag=CellUpgrades.has(upgrades,"tag_card")?stack.getOrCreateTag().getString("filterTag"):"";
+        String tag=CellUpgrades.has(upgrades,"tag_card")&&stack.hasTag()?stack.getTag().getString("filterTag"):"";
         return ResourceFilters.matches(key,selected,upgrades.isInstalled(AEItems.INVERTER_CARD),upgrades.isInstalled(AEItems.FUZZY_CARD),item.getFuzzyMode(stack),tag);
     }
     protected boolean overflow(){return CellUpgrades.has(upgrades,"overflow_card");}
+    /** Overflow cards may only void excess of types the cell already stores, never brand-new types. */
+    protected static boolean canVoidOverflow(boolean overflow,long stored){return overflow&&stored>0;}
     @Override public long totalBytes(){return CellMath.multiply(item.displayBytes(stack),item.multiplier(stack));}
     @Override public int maximumTypes(){return item.maximumTypes(stack);}
     @Override public double getIdleDrain(){return item.getIdleDrain();}

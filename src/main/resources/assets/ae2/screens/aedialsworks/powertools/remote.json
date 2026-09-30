@@ -205,9 +205,15 @@
       "width": 22,
       "height": 22
     },
-    "binding": {
+    "mode": {
       "left": -18,
-      "top": 24,
+      "top": 4,
+      "width": 16,
+      "height": 16
+    },
+    "hysteresis": {
+      "left": -18,
+      "top": 64,
       "width": 16,
       "height": 16
     },
@@ -217,9 +223,9 @@
       "width": 16,
       "height": 16
     },
-    "refresh": {
+    "binding": {
       "left": -18,
-      "top": 4,
+      "top": 24,
       "width": 16,
       "height": 16
     }

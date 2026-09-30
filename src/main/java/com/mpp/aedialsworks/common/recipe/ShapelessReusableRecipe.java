@@ -24,7 +24,7 @@ public final class ShapelessReusableRecipe extends ShapelessRecipe {
         var result=NonNullList.withSize(grid.getContainerSize(),ItemStack.EMPTY);
         for(int i=0;i<grid.getContainerSize();i++){var s=grid.getItem(i);if(s.hasCraftingRemainingItem())result.set(i,s.getCraftingRemainingItem());}
         int[] slots=new int[getIngredients().size()];
-        if(assign(grid,0,new boolean[grid.getContainerSize()],slots))for(int i:reusable)result.set(slots[i],grid.getItem(slots[i]).copyWithCount(1));
+        if(assign(grid,0,new boolean[grid.getContainerSize()],slots))for(int i:reusable){int slot=slots[i];if(result.get(slot).isEmpty())result.set(slot,grid.getItem(slot).copyWithCount(1));}
         return result;
     }
     public static final class Serializer implements RecipeSerializer<ShapelessReusableRecipe>{

@@ -45,7 +45,7 @@ public final class CellTerminalScreen extends TerminalScreenAdapter {
 
     public CellTerminalScreen(CellTerminalMenu menu, Inventory inv, Component title) { super(menu, inv, title); }
     private static Component text(String key, Object... args) { return Component.translatable("gui.aedialsworks.cellterminal." + key, args); }
-    private int footer() { return TerminalAtlas.CONTENT_TOP + visibleRows * 18; }
+    private int footer() { return TerminalAtlas.CONTENT_TOP + visibleRows * TerminalAtlas.ROW_HEIGHT; }
     private int maxScroll() { return Math.max(0, lines.size() - visibleRows); }
     private boolean partitionView() { return shown == TerminalTab.PARTITION || shown == TerminalTab.BUS_PARTITION || shown == TerminalTab.TEMP && tempPartition; }
     private boolean busRows() { return shown.bus() || shown == TerminalTab.NETWORK_TOOLS && toolBuses; }
@@ -166,22 +166,30 @@ public final class CellTerminalScreen extends TerminalScreenAdapter {
     private void updateRows() {
         String channel = shown == TerminalTab.TEMP ? TerminalChannels.TEMP_CELLS : busRows() ? TerminalChannels.BUSES : shown == TerminalTab.SUBNETS ? TerminalChannels.SUBNETS : TerminalChannels.STORAGES;
         var next = new ArrayList<CompoundTag>(); String query = search.getValue().trim(); queryError = "";
-        var parsed = query.isEmpty() ? null : AdvancedSearchParser.parse(query.startsWith("?") ? query : "?" + query);
+        var parsed = AdvancedSearchParser.isAdvancedQuery(query) ? AdvancedSearchParser.parse(query) : null;
         if (parsed != null && !parsed.isSuccess()) queryError = parsed.getErrorMessage();
+        var matcher = parsed != null && parsed.isSuccess() ? parsed.getMatcher() : null;
+        boolean subnets = shown == TerminalTab.SUBNETS, buses = busRows();
         for (var value : menu.data(channel).getList("entries", Tag.TAG_COMPOUND)) {
-            var entry = (CompoundTag)value; boolean matches = query.isEmpty();
-            if (parsed != null && parsed.isSuccess()) {
-                var matcher = parsed.getMatcher();
-                if (shown == TerminalTab.SUBNETS) matches = matcher.matchesSubnetConnectionFilter(new SubnetInfo(entry), new SubnetInfo.ConnectionPoint(entry), false, searchMode);
-                else if (busRows()) matches = matcher.matchesStorageBusFilter(new StorageBusInfo(entry), searchMode);
-                else matches = matcher.matchesCellFilter(new CellInfo(entry), new StorageInfo(entry), searchMode);
-                if (!query.startsWith("?")) matches |= entry.getString("name").toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT)) || entry.getString("storageName").toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT));
-            }
-            if (matches && matchesConfiguredFilters(entry)) next.add(entry);
+            var entry = (CompoundTag)value;
+            if (matchesQuery(query, matcher, subnets, buses, entry, searchMode) && matchesConfiguredFilters(entry)) next.add(entry);
         }
         rows = next;
         if (selected != null) { long id = selected.getLong("id"); selected = rows.stream().filter(row -> row.getLong("id") == id).findFirst().orElse(null); }
         if (selected == null && !rows.isEmpty()) select(rows.get(0)); rebuildLines();
+    }
+    static boolean matchesQuery(String query, AdvancedSearchParser.SearchMatcher matcher, boolean subnets, boolean buses, CompoundTag entry, SearchFilterMode searchMode) {
+        boolean matches = query.isEmpty();
+        if (matcher != null) {
+            if (subnets) matches = matcher.matchesSubnetConnectionFilter(new SubnetInfo(entry), null, false, searchMode);
+            else if (buses) matches = matcher.matchesStorageBusFilter(new StorageBusInfo(entry), searchMode);
+            else matches = matcher.matchesCellFilter(new CellInfo(entry), new StorageInfo(entry), searchMode);
+        }
+        if (!query.isEmpty() && !AdvancedSearchParser.isAdvancedQuery(query)) {
+            String lower = query.toLowerCase(Locale.ROOT);
+            matches |= entry.getString("name").toLowerCase(Locale.ROOT).contains(lower) || entry.getString("storageName").toLowerCase(Locale.ROOT).contains(lower);
+        }
+        return matches;
     }
     private String groupKey(CompoundTag entry) { return entry.getString("dimension") + ":" + entry.getLong("pos") + ":" + entry.getString("kind"); }
     private void rebuildLines() {
@@ -223,9 +231,9 @@ public final class CellTerminalScreen extends TerminalScreenAdapter {
     @Override public void drawBG(GuiGraphics g, int x, int y, int mouseX, int mouseY, float partial) {
         hits.clear(); hoverText = List.of(); TerminalAtlas.panel(g, x, y, imageWidth, imageHeight);
         g.drawString(font, trim(title.getString(), 155), x + 22, y + 6, TerminalAtlas.TEXT, false);
-        TerminalAtlas.inset(g, x + 21, y + 33, 162, visibleRows * 18 + 2);
+        TerminalAtlas.inset(g, x + 21, y + 33, 162, visibleRows * TerminalAtlas.ROW_HEIGHT + 2);
         for (int i = 0; i < visibleRows && scroll + i < lines.size(); i++) {
-            var line = lines.get(scroll + i); int ry = y + 34 + i * 18;
+            var line = lines.get(scroll + i); int ry = y + TerminalAtlas.CONTENT_TOP + i * TerminalAtlas.ROW_HEIGHT;
             switch (line.kind) {
                 case STORAGE -> drawStorage(g, line, x, ry, mouseX, mouseY);
                 case CELL -> drawCell(g, line.entry, x, ry, mouseX, mouseY);
@@ -347,9 +355,10 @@ public final class CellTerminalScreen extends TerminalScreenAdapter {
         hover(mx, my, x + 22, y, 160, 18, text(action), text("confirm_hint"), text("selected_count", selectedIds.isEmpty() ? rows.size() : selectedIds.size()));
     }
 
+    private int toolboxY(int y) { return Math.max(y + footer() + 6, y + TerminalAtlas.CONTENT_TOP + 134); }
     private void drawToolbox(GuiGraphics g, int x, int y, int mx, int my) {
         var cards = menu.data(TerminalChannels.META).getList("toolboxCards", Tag.TAG_COMPOUND); if (cards.isEmpty()) return;
-        int bx = x + 211, by = y + footer() + 6;
+        int bx = x + 211, by = toolboxY(y);
         TerminalAtlas.panel(g, bx, by, 62, 72); g.drawString(font, trim(text("toolbox").getString(), 54), bx + 4, by + 4, TerminalAtlas.TEXT, false);
         for (int i = 0; i < Math.min(9, cards.size()); i++) {
             int cx = bx + 4 + i % 3 * 18, cy = by + 14 + i / 3 * 18; TerminalAtlas.slot(g, cx, cy, false);
@@ -383,13 +392,13 @@ public final class CellTerminalScreen extends TerminalScreenAdapter {
     }
     private void applyPriority() { try { var payload = new CompoundTag(); payload.putInt("priority", Integer.parseInt(priority.getValue())); action("priority", payload); } catch (NumberFormatException ignored) {} }
     private void drawScrollbar(GuiGraphics g, int x, int y) {
-        int height = visibleRows * 18, track = height - 2; TerminalAtlas.inset(g, x + 189, y + 34, 12, height);
+        int height = visibleRows * TerminalAtlas.ROW_HEIGHT, track = height - 2; TerminalAtlas.inset(g, x + 189, y + 34, 12, height);
         int thumb = Math.max(15, track * visibleRows / Math.max(visibleRows, lines.size()));
         int offset = maxScroll() == 0 ? 0 : (track - thumb) * scroll / maxScroll(); TerminalAtlas.panel(g, x + 190, y + 35 + offset, 10, thumb);
         int cy = y + 35 + offset + thumb / 2; g.fill(x + 192, cy - 2, x + 198, cy - 1, 0xFF808080); g.fill(x + 192, cy + 1, x + 198, cy + 2, 0xFF808080);
     }
     private void scrollToMouse(double y) {
-        int track = visibleRows * 18 - 2, thumb = Math.max(15, track * visibleRows / Math.max(visibleRows, lines.size()));
+        int track = visibleRows * TerminalAtlas.ROW_HEIGHT - 2, thumb = Math.max(15, track * visibleRows / Math.max(visibleRows, lines.size()));
         double fraction = (y - topPos - 35 - thumb / 2d) / Math.max(1, track - thumb); scroll = Math.max(0, Math.min(maxScroll(), (int)Math.round(fraction * maxScroll())));
     }
     private String trim(String value, int width) { return font.width(value) <= width ? value : font.plainSubstrByWidth(value, width - font.width("…")) + "…"; }
@@ -401,9 +410,9 @@ public final class CellTerminalScreen extends TerminalScreenAdapter {
     @Override public boolean mouseClicked(double mx, double my, int button) {
         mx /= uiScale; my /= uiScale;
         if (button == 0) for (var hit : hits) if (hit.contains(mx, my)) { hit.action.run(); return true; }
-        if (inside(mx, my, leftPos + 189, topPos + 34, 12, visibleRows * 18)) { draggingScroll = true; scrollToMouse(my); return true; }
-        if (inside(mx, my, leftPos + 21, topPos + 34, 162, visibleRows * 18)) {
-            int index = ((int)my - topPos - 34) / 18 + scroll; if (index >= lines.size()) return true;
+        if (inside(mx, my, leftPos + 189, topPos + 34, 12, visibleRows * TerminalAtlas.ROW_HEIGHT)) { draggingScroll = true; scrollToMouse(my); return true; }
+        if (inside(mx, my, leftPos + 21, topPos + 34, 162, visibleRows * TerminalAtlas.ROW_HEIGHT)) {
+            int index = ((int)my - topPos - 34) / TerminalAtlas.ROW_HEIGHT + scroll; if (index >= lines.size()) return true;
             var line = lines.get(index); var entry = line.entry; if (entry == null) return true; select(entry);
             if (line.kind == LineKind.CONTENT && shown != TerminalTab.SUBNETS) {
                 int column = ((int)mx - leftPos - slotX(entry)) / 18, slot = line.index + column;
@@ -419,7 +428,7 @@ public final class CellTerminalScreen extends TerminalScreenAdapter {
             if (button == 0 && id == lastClickTarget && now - lastClickTime < 400 && shown != TerminalTab.SUBNETS) action("highlight", new CompoundTag());
             lastClickTarget = id; lastClickTime = now; return true;
         }
-        if (inside(mx, my, leftPos + 211, topPos + footer() + 6, 62, 72) && !menu.data(TerminalChannels.META).getList("toolboxCards", Tag.TAG_COMPOUND).isEmpty()) return true;
+        if (inside(mx, my, leftPos + 211, toolboxY(topPos), 62, 72) && !menu.data(TerminalChannels.META).getList("toolboxCards", Tag.TAG_COMPOUND).isEmpty()) return true;
         if (priority.visible && inside(mx, my, leftPos + 211, topPos + 34, 100, 134)) { if (priority.mouseClicked(mx, my, button)) { setFocused(priority); priority.setFocused(true); } return true; }
         return super.mouseClicked(mx, my, button);
     }
@@ -431,7 +440,7 @@ public final class CellTerminalScreen extends TerminalScreenAdapter {
     }
     @Override public boolean mouseScrolled(double mx, double my, double delta) {
         mx /= uiScale; my /= uiScale;
-        if (inside(mx, my, leftPos, topPos + 34, 208, visibleRows * 18)) { scroll = Math.max(0, Math.min(maxScroll(), scroll - (int)Math.signum(delta) * 3)); return true; }
+        if (inside(mx, my, leftPos, topPos + 34, 208, visibleRows * TerminalAtlas.ROW_HEIGHT)) { scroll = Math.max(0, Math.min(maxScroll(), scroll - (int)Math.signum(delta) * 3)); return true; }
         return super.mouseScrolled(mx, my, delta);
     }
     @Override public void render(GuiGraphics g, int x, int y, float partial) {

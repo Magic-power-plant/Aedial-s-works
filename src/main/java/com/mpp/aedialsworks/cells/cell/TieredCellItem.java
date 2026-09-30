@@ -26,7 +26,7 @@ public final class TieredCellItem extends Item implements IBasicCellItem {
     }
     public ItemStack component(ItemStack stack){return stack.hasTag()?ItemStack.of(stack.getTag().getCompound("component")):ItemStack.EMPTY;}
     public CellTier storageTier(ItemStack stack){var spec=ComponentSpec.of(component(stack));return spec==null?tier:spec.tier();}
-    public AEKeyType keyType(ItemStack stack){return storageFamily(stack)==CellFamily.CONFIGURABLE&&stack.getOrCreateTag().getBoolean("fluidChannel")?AEKeyType.fluids():storageFamily(stack).keyType();}
+    public AEKeyType keyType(ItemStack stack){return storageFamily(stack)==CellFamily.CONFIGURABLE&&stack.hasTag()&&stack.getTag().getBoolean("fluidChannel")?AEKeyType.fluids():storageFamily(stack).keyType();}
     public long displayBytes(ItemStack stack){return family==CellFamily.CONFIGURABLE&&component(stack).isEmpty()?0:storageTier(stack).bytes;}
     public long multiplier(ItemStack stack){return storageFamily(stack).highDensity?Integer.MAX_VALUE:1;}
     public int maximumTypes(ItemStack stack){
@@ -47,7 +47,7 @@ public final class TieredCellItem extends Item implements IBasicCellItem {
     @Override public double getIdleDrain(){return family.idleDrain();}
     @Override public IUpgradeInventory getUpgrades(ItemStack stack){return UpgradeInventories.forItem(stack,family.upgradeSlots());}
     @Override public ConfigInventory getConfigInventory(ItemStack stack){return CellConfig.create(keyType(stack).filter(),stack,storageFamily(stack).compacting?1:63);}
-    @Override public FuzzyMode getFuzzyMode(ItemStack stack){try{return FuzzyMode.valueOf(stack.getOrCreateTag().getString("FuzzyMode"));}catch(IllegalArgumentException ex){return FuzzyMode.IGNORE_ALL;}}
+    @Override public FuzzyMode getFuzzyMode(ItemStack stack){try{return FuzzyMode.valueOf(stack.hasTag()?stack.getTag().getString("FuzzyMode"):"");}catch(IllegalArgumentException ex){return FuzzyMode.IGNORE_ALL;}}
     @Override public void setFuzzyMode(ItemStack stack,FuzzyMode mode){stack.getOrCreateTag().putString("FuzzyMode",mode.name());}
     @Override public net.minecraft.world.InteractionResultHolder<ItemStack> use(Level level,net.minecraft.world.entity.player.Player player,net.minecraft.world.InteractionHand hand){
         var stack=player.getItemInHand(hand);if(hand!=net.minecraft.world.InteractionHand.MAIN_HAND)return net.minecraft.world.InteractionResultHolder.pass(stack);

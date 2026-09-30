@@ -15,11 +15,11 @@ public final class ProxyGuard {
         }return false;
     }
     public static final class Hop implements AutoCloseable {
-        private static final ThreadLocal<Integer> DEPTH=ThreadLocal.withInitial(()->0);
+        private static final ThreadLocal<Integer> DEPTH=new ThreadLocal<>();
         private boolean closed;
-        private Hop(){DEPTH.set(DEPTH.get()+1);}
-        public static boolean nested(){return DEPTH.get()>0;}
+        private Hop(){DEPTH.set(nested()?DEPTH.get()+1:1);}
+        public static boolean nested(){return DEPTH.get()!=null;}
         public static Hop enter(){return new Hop();}
-        @Override public void close(){if(!closed){closed=true;int depth=DEPTH.get()-1;if(depth==0)DEPTH.remove();else DEPTH.set(depth);}}
+        @Override public void close(){if(!closed){closed=true;int depth=(DEPTH.get()==null?1:DEPTH.get())-1;if(depth<=0)DEPTH.remove();else DEPTH.set(depth);}}
     }
 }
