@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "flf",
+    "gcg",
+    "fqf"
+  ],
+  "key": {
+    "f": {
+      "item": "ae2:fluix_crystal"
+    },
+    "l": {
+      "item": "aedialsworks:overclocked_processor_logic"
+    },
+    "g": {
+      "item": "aedialsworks:overclocked_processor_calculation"
+    },
+    "q": {
+      "item": "ae2:charged_certus_quartz_crystal"
+    },
+    "c": {
+      "item": "ae2:logic_processor"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:equal_distribution_card_1x",
+    "count": 1
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "a": {
+      "item": "ae2:crafting_accelerator"
+    },
+    "c": {
+      "item": "ae2:speed_card"
+    },
+    "e": {
+      "item": "ae2:energy_cell"
+    },
+    "m": {
+      "item": "ae2:molecular_assembler"
+    },
+    "s": {
+      "item": "ae2:64k_crafting_storage"
+    }
+  },
+  "pattern": [
+    "msm",
+    "aca",
+    "mem"
+  ],
+  "result": {
+    "item": "aedialsworks:crafter_speed_upgrade_i"
+  }
+}

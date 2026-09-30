@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "aedialsworks:block/cells/export_interface_fixed"
+    }
+  }
+}

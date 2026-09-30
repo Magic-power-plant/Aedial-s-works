@@ -1,0 +1,287 @@
+{
+  "includes": [
+    "../../common/common.json"
+  ],
+  "slots": {
+    "PLAYER_INVENTORY": {
+      "left": 8,
+      "top": 133,
+      "grid": "BREAK_AFTER_9COLS"
+    },
+    "PLAYER_HOTBAR": {
+      "left": 8,
+      "top": 191,
+      "grid": "HORIZONTAL"
+    },
+    "UPGRADE": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_GRID": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_RESULT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "MISSING_INGREDIENT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_0": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_1": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_2": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_3": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_4": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_5": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_6": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_7": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_8": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_9": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_10": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_11": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_12": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_13": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_14": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_15": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_16": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_17": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_18": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_19": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_20": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_21": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_22": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_23": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_0": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_1": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_2": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_3": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_4": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_5": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_6": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_7": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_8": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_9": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_10": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_11": {
+      "left": -10000,
+      "top": -10000
+    }
+  },
+  "text": {
+    "dialog_title": {
+      "position": {
+        "left": 8,
+        "top": 6
+      },
+      "scale": 0.8,
+      "text": {
+        "translate": "gui.aedialsworks.powertools.choose_resource"
+      }
+    },
+    "inventory": {
+      "position": {
+        "left": 8,
+        "top": 121
+      },
+      "scale": 1,
+      "text": {
+        "translate": "container.inventory"
+      }
+    },
+    "hint": {
+      "position": {
+        "left": 8,
+        "top": 212
+      },
+      "scale": 0.65,
+      "text": {
+        "translate": "gui.aedialsworks.powertools.selector_hint"
+      }
+    },
+    "message": {
+      "position": {
+        "left": 8,
+        "top": -12
+      },
+      "scale": 0.8
+    }
+  },
+  "widgets": {
+    "back": {
+      "left": -18,
+      "top": 4,
+      "width": 16,
+      "height": 16
+    },
+    "search": {
+      "left": 8,
+      "top": 22,
+      "width": 159,
+      "height": 12
+    },
+    "scrollbar": {
+      "left": 175,
+      "top": 40,
+      "width": 12,
+      "height": 79
+    },
+    "result0": {
+      "left": 8,
+      "top": 40,
+      "width": 162,
+      "height": 15
+    },
+    "result1": {
+      "left": 8,
+      "top": 55,
+      "width": 162,
+      "height": 15
+    },
+    "result2": {
+      "left": 8,
+      "top": 70,
+      "width": 162,
+      "height": 15
+    },
+    "result3": {
+      "left": 8,
+      "top": 85,
+      "width": 162,
+      "height": 15
+    },
+    "result4": {
+      "left": 8,
+      "top": 100,
+      "width": 162,
+      "height": 15
+    },
+    "inventoryPanel": {
+      "left": 7,
+      "top": 132,
+      "width": 162,
+      "height": 76
+    }
+  },
+  "generatedBackground": {
+    "width": 195,
+    "height": 222
+  },
+  "images": {
+    "inventoryPanel": {
+      "texture": "ae2:textures/guis/storagebus.png",
+      "srcRect": [
+        7,
+        168,
+        162,
+        76
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "aedialsworks:powertools/items/crafter_speed_upgrade_i"
+  }
+}

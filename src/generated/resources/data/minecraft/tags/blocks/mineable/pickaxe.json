@@ -1,0 +1,18 @@
+{
+  "values": [
+    "aedialsworks:better_level_maintainer",
+    "aedialsworks:auto_crafter",
+    "aedialsworks:storage_level_emitter",
+    "aedialsworks:storage_display",
+    "aedialsworks:storage_level_alarm",
+    "aedialsworks:import_interface",
+    "aedialsworks:fluid_import_interface",
+    "aedialsworks:export_interface",
+    "aedialsworks:fluid_export_interface",
+    "aedialsworks:combined_import_interface",
+    "aedialsworks:combined_export_interface",
+    "aedialsworks:item_io_interface",
+    "aedialsworks:fluid_io_interface",
+    "aedialsworks:compacting_pattern_exposer"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "pcp",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "item": "ae2:printed_calculation_processor"
+    },
+    "c": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:compressed_calculation_print_compressed",
+    "count": 1
+  }
+}

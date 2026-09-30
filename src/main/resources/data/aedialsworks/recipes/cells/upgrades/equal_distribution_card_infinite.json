@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "flf",
+    "gcg",
+    "fqf"
+  ],
+  "key": {
+    "f": {
+      "item": "ae2:fluix_crystal"
+    },
+    "l": {
+      "item": "aedialsworks:singularity_processor_logic"
+    },
+    "g": {
+      "item": "aedialsworks:singularity_processor_calculation"
+    },
+    "q": {
+      "item": "ae2:singularity"
+    },
+    "c": {
+      "item": "aedialsworks:equal_distribution_card_1x"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:equal_distribution_card_infinite",
+    "count": 1
+  }
+}

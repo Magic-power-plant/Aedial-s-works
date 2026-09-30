@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "aedialsworks:block/better_level_maintainer",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "aedialsworks:block/better_level_maintainer",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "aedialsworks:block/better_level_maintainer",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "aedialsworks:block/better_level_maintainer",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "aedialsworks:block/better_level_maintainer"
+    },
+    "facing=west": {
+      "model": "aedialsworks:block/better_level_maintainer",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

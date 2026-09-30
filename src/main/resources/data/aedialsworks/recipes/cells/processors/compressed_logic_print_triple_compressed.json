@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "pcp",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "item": "aedialsworks:compressed_logic_print_double_compressed"
+    },
+    "c": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:compressed_logic_print_triple_compressed",
+    "count": 1
+  }
+}

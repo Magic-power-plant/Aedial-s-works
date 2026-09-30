@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "aedialsworks:block/cells/compacting_pattern_exposer_fixed"
+    }
+  }
+}

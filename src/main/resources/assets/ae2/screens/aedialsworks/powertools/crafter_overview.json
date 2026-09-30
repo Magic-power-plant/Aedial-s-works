@@ -1,0 +1,295 @@
+{
+  "includes": [
+    "../../common/common.json"
+  ],
+  "slots": {
+    "PLAYER_INVENTORY": {
+      "left": -10000,
+      "top": -10000
+    },
+    "PLAYER_HOTBAR": {
+      "left": -10000,
+      "top": -10000
+    },
+    "UPGRADE": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_GRID": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_RESULT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "MISSING_INGREDIENT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_0": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_1": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_2": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_3": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_4": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_5": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_6": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_7": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_8": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_9": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_10": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_11": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_12": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_13": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_14": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_15": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_16": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_17": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_18": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_19": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_20": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_21": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_22": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_23": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_0": {
+      "left": 8,
+      "top": 26
+    },
+    "aedialsworks_pattern_1": {
+      "left": 8,
+      "top": 44
+    },
+    "aedialsworks_pattern_2": {
+      "left": 8,
+      "top": 62
+    },
+    "aedialsworks_pattern_3": {
+      "left": 8,
+      "top": 80
+    },
+    "aedialsworks_pattern_4": {
+      "left": 8,
+      "top": 98
+    },
+    "aedialsworks_pattern_5": {
+      "left": 8,
+      "top": 116
+    },
+    "aedialsworks_pattern_6": {
+      "left": 8,
+      "top": 134
+    },
+    "aedialsworks_pattern_7": {
+      "left": 8,
+      "top": 152
+    },
+    "aedialsworks_pattern_8": {
+      "left": 8,
+      "top": 170
+    },
+    "aedialsworks_pattern_9": {
+      "left": 8,
+      "top": 188
+    },
+    "aedialsworks_pattern_10": {
+      "left": 8,
+      "top": 206
+    },
+    "aedialsworks_pattern_11": {
+      "left": 8,
+      "top": 224
+    }
+  },
+  "text": {
+    "dialog_title": {
+      "position": {
+        "left": 8,
+        "top": 5
+      },
+      "scale": 0.8,
+      "text": {
+        "translate": "gui.aedialsworks.powertools.recipes"
+      }
+    },
+    "recipe0": {
+      "position": {
+        "left": 29,
+        "top": 31
+      },
+      "scale": 0.75
+    },
+    "recipe1": {
+      "position": {
+        "left": 29,
+        "top": 49
+      },
+      "scale": 0.75
+    },
+    "recipe2": {
+      "position": {
+        "left": 29,
+        "top": 67
+      },
+      "scale": 0.75
+    },
+    "recipe3": {
+      "position": {
+        "left": 29,
+        "top": 85
+      },
+      "scale": 0.75
+    },
+    "recipe4": {
+      "position": {
+        "left": 29,
+        "top": 103
+      },
+      "scale": 0.75
+    },
+    "recipe5": {
+      "position": {
+        "left": 29,
+        "top": 121
+      },
+      "scale": 0.75
+    },
+    "recipe6": {
+      "position": {
+        "left": 29,
+        "top": 139
+      },
+      "scale": 0.75
+    },
+    "recipe7": {
+      "position": {
+        "left": 29,
+        "top": 157
+      },
+      "scale": 0.75
+    },
+    "recipe8": {
+      "position": {
+        "left": 29,
+        "top": 175
+      },
+      "scale": 0.75
+    },
+    "recipe9": {
+      "position": {
+        "left": 29,
+        "top": 193
+      },
+      "scale": 0.75
+    },
+    "recipe10": {
+      "position": {
+        "left": 29,
+        "top": 211
+      },
+      "scale": 0.75
+    },
+    "recipe11": {
+      "position": {
+        "left": 29,
+        "top": 229
+      },
+      "scale": 0.75
+    },
+    "message": {
+      "position": {
+        "left": 8,
+        "top": -12
+      },
+      "scale": 0.8
+    }
+  },
+  "widgets": {
+    "back": {
+      "left": -18,
+      "top": 4,
+      "width": 16,
+      "height": 16
+    }
+  },
+  "background": {
+    "texture": "aedialsworks:textures/powertools/guis/crafter_overview.png",
+    "srcRect": [
+      0,
+      0,
+      176,
+      248
+    ]
+  }
+}

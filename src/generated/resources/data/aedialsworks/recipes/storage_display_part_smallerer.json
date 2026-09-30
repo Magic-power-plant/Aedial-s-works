@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "aedialsworks:storage_display_part_smaller"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:storage_display_part_smallerer"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bgb",
+    "ice",
+    "fhf"
+  ],
+  "key": {
+    "b": {
+      "tag": "forge:ingots/iron"
+    },
+    "c": {
+      "item": "aedialsworks:hyper_density_compacting_component_1k"
+    },
+    "e": {
+      "item": "ae2:formation_core"
+    },
+    "f": {
+      "item": "ae2:fluix_pearl"
+    },
+    "g": {
+      "tag": "forge:glass"
+    },
+    "h": {
+      "item": "aedialsworks:hyper_density_component_1k"
+    },
+    "i": {
+      "item": "ae2:annihilation_core"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:compacting_pattern_exposer"
+  }
+}

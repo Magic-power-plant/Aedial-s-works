@@ -1,0 +1,10 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "aedialsworks:cells/items/cells/frame_hyper_density",
+    "layer1": "aedialsworks:cells/items/cells/outer_highlights",
+    "layer2": "aedialsworks:cells/items/cells/inner_highlights",
+    "layer3": "aedialsworks:cells/items/cells/cell_shapes/shape_2_inner",
+    "layer4": "aedialsworks:cells/items/cells/cell_shapes/shape_2_outer"
+  }
+}

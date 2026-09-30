@@ -1,0 +1,9 @@
+{
+  "parent": "aedialsworks:part/cells/subnet_proxy_back_item_base",
+  "textures": {
+    "front": "aedialsworks:cells/parts/subnet_proxy/proxy_side_face",
+    "back": "aedialsworks:cells/parts/subnet_proxy/proxy_side_cable_off",
+    "top": "aedialsworks:cells/parts/subnet_proxy/proxy_back_top_off",
+    "side": "aedialsworks:cells/parts/subnet_proxy/proxy_back_side_off"
+  }
+}

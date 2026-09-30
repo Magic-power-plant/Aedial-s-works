@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "aedialsworks:item/cellterminal/wireless_cell_terminal"
+  }
+}

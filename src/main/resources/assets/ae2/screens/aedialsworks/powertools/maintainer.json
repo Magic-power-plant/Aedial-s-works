@@ -1,0 +1,594 @@
+{
+  "includes": [
+    "../../common/common.json"
+  ],
+  "slots": {
+    "PLAYER_INVENTORY": {
+      "left": -10000,
+      "top": -10000
+    },
+    "PLAYER_HOTBAR": {
+      "left": -10000,
+      "top": -10000
+    },
+    "UPGRADE": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_GRID": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_RESULT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "MISSING_INGREDIENT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_0": {
+      "left": 12,
+      "top": 21
+    },
+    "aedialsworks_config_1": {
+      "left": 80,
+      "top": 21
+    },
+    "aedialsworks_config_2": {
+      "left": 148,
+      "top": 21
+    },
+    "aedialsworks_config_3": {
+      "left": 12,
+      "top": 44
+    },
+    "aedialsworks_config_4": {
+      "left": 80,
+      "top": 44
+    },
+    "aedialsworks_config_5": {
+      "left": 148,
+      "top": 44
+    },
+    "aedialsworks_config_6": {
+      "left": 12,
+      "top": 67
+    },
+    "aedialsworks_config_7": {
+      "left": 80,
+      "top": 67
+    },
+    "aedialsworks_config_8": {
+      "left": 148,
+      "top": 67
+    },
+    "aedialsworks_config_9": {
+      "left": 12,
+      "top": 90
+    },
+    "aedialsworks_config_10": {
+      "left": 80,
+      "top": 90
+    },
+    "aedialsworks_config_11": {
+      "left": 148,
+      "top": 90
+    },
+    "aedialsworks_config_12": {
+      "left": 12,
+      "top": 113
+    },
+    "aedialsworks_config_13": {
+      "left": 80,
+      "top": 113
+    },
+    "aedialsworks_config_14": {
+      "left": 148,
+      "top": 113
+    },
+    "aedialsworks_config_15": {
+      "left": 12,
+      "top": 136
+    },
+    "aedialsworks_config_16": {
+      "left": 80,
+      "top": 136
+    },
+    "aedialsworks_config_17": {
+      "left": 148,
+      "top": 136
+    },
+    "aedialsworks_config_18": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_19": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_20": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_21": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_22": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_23": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_0": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_1": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_2": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_3": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_4": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_5": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_6": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_7": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_8": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_9": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_10": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_11": {
+      "left": -10000,
+      "top": -10000
+    }
+  },
+  "text": {
+    "dialog_title": {
+      "position": {
+        "left": 8,
+        "top": 5
+      },
+      "scale": 0.8
+    },
+    "amount0": {
+      "position": {
+        "left": 31,
+        "top": 21
+      },
+      "scale": 0.55
+    },
+    "state0": {
+      "position": {
+        "left": 31,
+        "top": 30
+      },
+      "scale": 0.55
+    },
+    "amount1": {
+      "position": {
+        "left": 99,
+        "top": 21
+      },
+      "scale": 0.55
+    },
+    "state1": {
+      "position": {
+        "left": 99,
+        "top": 30
+      },
+      "scale": 0.55
+    },
+    "amount2": {
+      "position": {
+        "left": 167,
+        "top": 21
+      },
+      "scale": 0.55
+    },
+    "state2": {
+      "position": {
+        "left": 167,
+        "top": 30
+      },
+      "scale": 0.55
+    },
+    "amount3": {
+      "position": {
+        "left": 31,
+        "top": 44
+      },
+      "scale": 0.55
+    },
+    "state3": {
+      "position": {
+        "left": 31,
+        "top": 53
+      },
+      "scale": 0.55
+    },
+    "amount4": {
+      "position": {
+        "left": 99,
+        "top": 44
+      },
+      "scale": 0.55
+    },
+    "state4": {
+      "position": {
+        "left": 99,
+        "top": 53
+      },
+      "scale": 0.55
+    },
+    "amount5": {
+      "position": {
+        "left": 167,
+        "top": 44
+      },
+      "scale": 0.55
+    },
+    "state5": {
+      "position": {
+        "left": 167,
+        "top": 53
+      },
+      "scale": 0.55
+    },
+    "amount6": {
+      "position": {
+        "left": 31,
+        "top": 67
+      },
+      "scale": 0.55
+    },
+    "state6": {
+      "position": {
+        "left": 31,
+        "top": 76
+      },
+      "scale": 0.55
+    },
+    "amount7": {
+      "position": {
+        "left": 99,
+        "top": 67
+      },
+      "scale": 0.55
+    },
+    "state7": {
+      "position": {
+        "left": 99,
+        "top": 76
+      },
+      "scale": 0.55
+    },
+    "amount8": {
+      "position": {
+        "left": 167,
+        "top": 67
+      },
+      "scale": 0.55
+    },
+    "state8": {
+      "position": {
+        "left": 167,
+        "top": 76
+      },
+      "scale": 0.55
+    },
+    "amount9": {
+      "position": {
+        "left": 31,
+        "top": 90
+      },
+      "scale": 0.55
+    },
+    "state9": {
+      "position": {
+        "left": 31,
+        "top": 99
+      },
+      "scale": 0.55
+    },
+    "amount10": {
+      "position": {
+        "left": 99,
+        "top": 90
+      },
+      "scale": 0.55
+    },
+    "state10": {
+      "position": {
+        "left": 99,
+        "top": 99
+      },
+      "scale": 0.55
+    },
+    "amount11": {
+      "position": {
+        "left": 167,
+        "top": 90
+      },
+      "scale": 0.55
+    },
+    "state11": {
+      "position": {
+        "left": 167,
+        "top": 99
+      },
+      "scale": 0.55
+    },
+    "amount12": {
+      "position": {
+        "left": 31,
+        "top": 113
+      },
+      "scale": 0.55
+    },
+    "state12": {
+      "position": {
+        "left": 31,
+        "top": 122
+      },
+      "scale": 0.55
+    },
+    "amount13": {
+      "position": {
+        "left": 99,
+        "top": 113
+      },
+      "scale": 0.55
+    },
+    "state13": {
+      "position": {
+        "left": 99,
+        "top": 122
+      },
+      "scale": 0.55
+    },
+    "amount14": {
+      "position": {
+        "left": 167,
+        "top": 113
+      },
+      "scale": 0.55
+    },
+    "state14": {
+      "position": {
+        "left": 167,
+        "top": 122
+      },
+      "scale": 0.55
+    },
+    "amount15": {
+      "position": {
+        "left": 31,
+        "top": 136
+      },
+      "scale": 0.55
+    },
+    "state15": {
+      "position": {
+        "left": 31,
+        "top": 145
+      },
+      "scale": 0.55
+    },
+    "amount16": {
+      "position": {
+        "left": 99,
+        "top": 136
+      },
+      "scale": 0.55
+    },
+    "state16": {
+      "position": {
+        "left": 99,
+        "top": 145
+      },
+      "scale": 0.55
+    },
+    "amount17": {
+      "position": {
+        "left": 167,
+        "top": 136
+      },
+      "scale": 0.55
+    },
+    "state17": {
+      "position": {
+        "left": 167,
+        "top": 145
+      },
+      "scale": 0.55
+    },
+    "summary": {
+      "position": {
+        "left": 9,
+        "top": 163
+      },
+      "scale": 0.8
+    },
+    "active": {
+      "position": {
+        "left": 123,
+        "top": 163
+      },
+      "scale": 0.8
+    },
+    "message": {
+      "position": {
+        "left": 8,
+        "top": -12
+      },
+      "scale": 0.8
+    }
+  },
+  "widgets": {
+    "search": {
+      "left": 130,
+      "top": 4,
+      "width": 80,
+      "height": 12
+    },
+    "scrollbar": {
+      "left": 218,
+      "top": 19,
+      "width": 12,
+      "height": 136
+    },
+    "run0": {
+      "left": 66,
+      "top": 25,
+      "width": 8,
+      "height": 8
+    },
+    "run1": {
+      "left": 134,
+      "top": 25,
+      "width": 8,
+      "height": 8
+    },
+    "run2": {
+      "left": 202,
+      "top": 25,
+      "width": 8,
+      "height": 8
+    },
+    "run3": {
+      "left": 66,
+      "top": 48,
+      "width": 8,
+      "height": 8
+    },
+    "run4": {
+      "left": 134,
+      "top": 48,
+      "width": 8,
+      "height": 8
+    },
+    "run5": {
+      "left": 202,
+      "top": 48,
+      "width": 8,
+      "height": 8
+    },
+    "run6": {
+      "left": 66,
+      "top": 71,
+      "width": 8,
+      "height": 8
+    },
+    "run7": {
+      "left": 134,
+      "top": 71,
+      "width": 8,
+      "height": 8
+    },
+    "run8": {
+      "left": 202,
+      "top": 71,
+      "width": 8,
+      "height": 8
+    },
+    "run9": {
+      "left": 66,
+      "top": 94,
+      "width": 8,
+      "height": 8
+    },
+    "run10": {
+      "left": 134,
+      "top": 94,
+      "width": 8,
+      "height": 8
+    },
+    "run11": {
+      "left": 202,
+      "top": 94,
+      "width": 8,
+      "height": 8
+    },
+    "run12": {
+      "left": 66,
+      "top": 117,
+      "width": 8,
+      "height": 8
+    },
+    "run13": {
+      "left": 134,
+      "top": 117,
+      "width": 8,
+      "height": 8
+    },
+    "run14": {
+      "left": 202,
+      "top": 117,
+      "width": 8,
+      "height": 8
+    },
+    "run15": {
+      "left": 66,
+      "top": 140,
+      "width": 8,
+      "height": 8
+    },
+    "run16": {
+      "left": 134,
+      "top": 140,
+      "width": 8,
+      "height": 8
+    },
+    "run17": {
+      "left": 202,
+      "top": 140,
+      "width": 8,
+      "height": 8
+    },
+    "inventoryButton": {
+      "left": -18,
+      "top": 4,
+      "width": 16,
+      "height": 16
+    }
+  },
+  "background": {
+    "texture": "aedialsworks:textures/powertools/guis/maintainer_gui.png",
+    "srcRect": [
+      0,
+      0,
+      238,
+      206
+    ]
+  }
+}

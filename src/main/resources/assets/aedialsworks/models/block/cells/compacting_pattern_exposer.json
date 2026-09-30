@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "top": "aedialsworks:cells/blocks/compacting_pattern_exposer_top",
+    "side": "aedialsworks:cells/blocks/compacting_pattern_exposer_side",
+    "bottom": "aedialsworks:cells/blocks/compacting_pattern_exposer_side"
+  }
+}

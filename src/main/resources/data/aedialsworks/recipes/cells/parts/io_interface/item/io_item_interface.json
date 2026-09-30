@@ -1,0 +1,14 @@
+{
+  "type": "aedialsworks:machine_assembly",
+  "ingredients": [
+    {
+      "item": "aedialsworks:import_interface_part"
+    },
+    {
+      "item": "aedialsworks:export_interface_part"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:item_io_interface_part"
+  }
+}

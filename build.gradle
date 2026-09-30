@@ -67,7 +67,7 @@ minecraft {
 
             workingDirectory project.file('run-data')
 
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing-mod', 'ae2'
         }
     }
 }
@@ -82,17 +82,39 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven {
+        name = 'Modmaven'
+        url = 'https://modmaven.dev/'
+        content {
+            includeGroup 'appeng'
+        }
+    }
+    mavenCentral()
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    testImplementation platform('org.junit:junit-bom:5.10.3')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Applied Energistics 2 - https://github.com/AppliedEnergistics/Applied-Energistics-2/tree/forge/1.20.1
+    // Modmaven publishes this artifact already remapped to official (Mojang) names, which is exactly the
+    // namespace this project uses (mapping_channel=official), so no fg.deobf() is required here.
+    implementation "appeng:appliedenergistics2-forge:${ae2_version}"
+
+    // GuideME is a mandatory dependency of AE2 and is published on Maven Central in SRG names,
+    // so it does need deobfuscation. It is only needed at runtime (AE2 pulls it in in production).
+    runtimeOnly fg.deobf("org.appliedenergistics:guideme:${guideme_version}")
 }
 
 tasks.named('processResources', ProcessResources).configure {
     var replaceProperties = [minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
                              forge_version       : forge_version, forge_version_range: forge_version_range,
                              loader_version_range: loader_version_range,
+                             ae2_version_range   : ae2_version_range,
                              mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
                              mod_authors         : mod_authors, mod_description: mod_description,]
 
@@ -119,4 +141,79 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' 
+}
+
+
+tasks.named('test', Test).configure {
+    useJUnitPlatform()
+    systemProperty 'file.encoding', 'UTF-8'
+    testLogging { events 'failed', 'skipped' }
+}
+
+
+// Runtime verification code is not part of the production jar.
+sourceSets {
+    smoke {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+configurations {
+    smokeImplementation.extendsFrom implementation
+    smokeRuntimeOnly.extendsFrom runtimeOnly
+}
+minecraft.runs.gameTestServer {
+    workingDirectory project.file('run-gametest')
+    property 'forge.logging.console.level', 'info'
+    mods { "${mod_id}" { source sourceSets.smoke } }
+}
+if (providers.gradleProperty('p0Smoke').isPresent() || providers.gradleProperty('p1Smoke').isPresent()) {
+    minecraft.runs.client {
+        workingDirectory project.file('run-smoke')
+        property 'forge.logging.console.level', 'info'
+        property 'aedialsworks.clientSmoke', 'true'
+        property 'aedialsworks.p1Smoke', providers.gradleProperty('p1Smoke').isPresent().toString()
+        property 'aedialsworks.smokeReportDir', file('build/reports/smoke').absolutePath
+        property 'aedialsworks.smokeLanguage', providers.gradleProperty('p1SmokeLanguage').getOrElse('en_us')
+        args '--width', '1000', '--height', '700'
+        mods { "${mod_id}" { source sourceSets.smoke } }
+    }
+}
+
+if (providers.gradleProperty('p2Smoke').isPresent()) {
+    minecraft.runs.client {
+        workingDirectory project.file('run-p2-smoke')
+        property 'forge.logging.console.level', 'info'
+        property 'aedialsworks.clientSmoke', 'true'
+        property 'aedialsworks.p2Smoke', 'true'
+        property 'aedialsworks.restartSmoke', providers.gradleProperty('p2RestartSmoke').getOrElse('')
+        property 'aedialsworks.smokeReportDir', file('build/reports/smoke').absolutePath
+        property 'aedialsworks.smokeLanguage', providers.gradleProperty('p2SmokeLanguage').getOrElse('en_us')
+        args '--width', '1200', '--height', '800'
+        mods { "${mod_id}" { source sourceSets.smoke } }
+    }
+}
+
+// Optional JEI acceptance probe: never a production dependency or packaged class.
+if (providers.gradleProperty('p2JeiSmoke').isPresent()) {
+    repositories { maven { url = 'https://maven.blamejared.com'; content { includeGroup 'mezz.jei' } } }
+    sourceSets.smoke.java.srcDir 'src/jeismoke/java'
+    dependencies {
+        smokeImplementation fg.deobf('mezz.jei:jei-1.20.1-common-api:15.20.0.105')
+        smokeRuntimeOnly fg.deobf('mezz.jei:jei-1.20.1-forge:15.20.0.105')
+    }
+    minecraft.runs.client { property 'aedialsworks.jeiSmoke', 'true' }
+}
+
+if (providers.gradleProperty('p3Smoke').isPresent()) {
+    minecraft.runs.client {
+        workingDirectory project.file('run-p3-smoke')
+        property 'forge.logging.console.level', 'info'
+        property 'aedialsworks.clientSmoke', 'true'
+        property 'aedialsworks.p3Smoke', 'true'
+        property 'aedialsworks.smokeReportDir', file('build/reports/smoke').absolutePath
+        property 'aedialsworks.smokeLanguage', providers.gradleProperty('p3SmokeLanguage').getOrElse('en_us')
+        args '--width', '1200', '--height', '800'
+        mods { "${mod_id}" { source sourceSets.smoke } }
+    }
 }

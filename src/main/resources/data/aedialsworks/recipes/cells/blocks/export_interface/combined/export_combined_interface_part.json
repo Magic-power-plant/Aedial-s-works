@@ -1,0 +1,11 @@
+{
+  "type": "aedialsworks:machine_conversion",
+  "ingredients": [
+    {
+      "item": "aedialsworks:combined_export_interface"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:combined_export_interface_part"
+  }
+}

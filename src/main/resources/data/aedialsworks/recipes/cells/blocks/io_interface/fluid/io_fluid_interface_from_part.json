@@ -1,0 +1,11 @@
+{
+  "type": "aedialsworks:machine_conversion",
+  "ingredients": [
+    {
+      "item": "aedialsworks:fluid_io_interface_part"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:fluid_io_interface"
+  }
+}

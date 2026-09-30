@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "a": {
+      "item": "ae2:crafting_accelerator"
+    },
+    "b": {
+      "item": "aedialsworks:better_level_maintainer"
+    },
+    "c": {
+      "item": "ae2:calculation_processor"
+    },
+    "f": {
+      "item": "ae2:fluix_crystal"
+    },
+    "m": {
+      "item": "ae2:molecular_assembler"
+    },
+    "s": {
+      "item": "ae2:64k_crafting_storage"
+    }
+  },
+  "pattern": [
+    "msm",
+    "fbf",
+    "aca"
+  ],
+  "result": {
+    "item": "aedialsworks:auto_crafter"
+  }
+}

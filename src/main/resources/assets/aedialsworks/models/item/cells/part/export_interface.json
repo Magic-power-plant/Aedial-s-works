@@ -1,0 +1,8 @@
+{
+  "parent": "aedialsworks:part/cells/part_item_base",
+  "textures": {
+    "sides": "aedialsworks:cells/parts/export_interface/item/sides",
+    "back": "aedialsworks:cells/parts/export_interface/item/back",
+    "front": "aedialsworks:cells/blocks/export_interface/item/front"
+  }
+}

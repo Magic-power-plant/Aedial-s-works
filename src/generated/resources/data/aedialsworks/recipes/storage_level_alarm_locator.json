@@ -1,0 +1,18 @@
+{
+  "type": "aedialsworks:shapeless_reusable",
+  "ingredients": [
+    {
+      "item": "aedialsworks:storage_level_alarm",
+      "reusable": true
+    },
+    {
+      "item": "minecraft:compass"
+    },
+    {
+      "item": "ae2:smooth_sky_stone_block"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:storage_level_alarm_locator"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "aedialsworks:block/storage_level_emitter",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "aedialsworks:block/storage_level_emitter",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "aedialsworks:block/storage_level_emitter",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "aedialsworks:block/storage_level_emitter",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "aedialsworks:block/storage_level_emitter"
+    },
+    "facing=west": {
+      "model": "aedialsworks:block/storage_level_emitter",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

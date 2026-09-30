@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "a": [
+      {
+        "item": "ae2:semi_dark_monitor"
+      },
+      {
+        "item": "ae2:monitor"
+      },
+      {
+        "item": "ae2:dark_monitor"
+      }
+    ],
+    "b": {
+      "tag": "forge:ingots/iron"
+    },
+    "c": {
+      "item": "ae2:storage_monitor"
+    },
+    "d": {
+      "item": "ae2:quartz_glass"
+    }
+  },
+  "pattern": [
+    " a ",
+    "bcb",
+    " d "
+  ],
+  "result": {
+    "item": "aedialsworks:storage_display"
+  }
+}

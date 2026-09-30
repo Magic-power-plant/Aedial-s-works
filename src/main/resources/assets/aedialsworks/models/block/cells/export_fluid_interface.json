@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "top": "aedialsworks:cells/blocks/export_interface/fluid/front",
+    "side": "aedialsworks:cells/blocks/export_interface/fluid/side",
+    "bottom": "aedialsworks:cells/blocks/export_interface/fluid/front"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "ae2:inscriber",
+  "ingredients": {
+    "bottom": {
+      "item": "aedialsworks:compressed_silicon_print_quadruple_compressed"
+    },
+    "middle": {
+      "item": "ae2:singularity"
+    },
+    "top": {
+      "item": "aedialsworks:compressed_engineering_print_quadruple_compressed"
+    }
+  },
+  "mode": "press",
+  "result": {
+    "item": "aedialsworks:singularity_processor_engineering"
+  }
+}

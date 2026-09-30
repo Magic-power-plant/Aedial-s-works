@@ -7,6 +7,7 @@ modId = "${mod_id}"
 version = "${mod_version}"
 displayName = "${mod_name}"
 authors = "${mod_authors}"
+credits = "Original Cell Terminal, AE2 PowerTools and C.E.L.L.S. by Aedial; port by Magic power plant."
 description = '''${mod_description}'''
 
 [[dependencies."${mod_id}"]]
@@ -21,4 +22,11 @@ modId = "minecraft"
 mandatory = true
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+modId = "ae2"
+mandatory = true
+versionRange = "${ae2_version_range}"
+ordering = "AFTER"
 side = "BOTH"

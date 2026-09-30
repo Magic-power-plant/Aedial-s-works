@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "afa",
+    "bcb",
+    "afa"
+  ],
+  "key": {
+    "a": {
+      "tag": "forge:ingots/iron"
+    },
+    "f": {
+      "item": "ae2:fluix_pearl"
+    },
+    "b": {
+      "item": "ae2:annihilation_core"
+    },
+    "c": {
+      "item": "ae2:storage_bus"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:subnet_proxy_front"
+  }
+}

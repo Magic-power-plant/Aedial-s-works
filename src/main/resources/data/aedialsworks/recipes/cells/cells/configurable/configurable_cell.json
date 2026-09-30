@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "gcg",
+    "ihi",
+    "gpg"
+  ],
+  "key": {
+    "c": {
+      "item": "aedialsworks:equal_distribution_card_63x"
+    },
+    "g": {
+      "item": "ae2:quartz_glass"
+    },
+    "h": {
+      "item": "ae2:item_cell_housing"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "p": {
+      "item": "aedialsworks:overclocked_processor_calculation"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:configurable_cell"
+  }
+}

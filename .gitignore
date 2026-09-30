@@ -19,3 +19,18 @@ hs_err_pid*
 
 # Common working directory
 run
+
+# Data generation working directory/cache
+run-data/
+src/generated/resources/.cache/
+
+# Isolated runtime verification worlds
+run-smoke/
+run-gametest/
+
+# Logs emitted by headless Minecraft unit tests
+/logs/
+
+run-p2-smoke/
+
+run-p3-smoke/

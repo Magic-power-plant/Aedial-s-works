@@ -1,0 +1,335 @@
+{
+  "includes": [
+    "../../common/common.json"
+  ],
+  "slots": {
+    "PLAYER_INVENTORY": {
+      "left": -10000,
+      "top": -10000
+    },
+    "PLAYER_HOTBAR": {
+      "left": -10000,
+      "top": -10000
+    },
+    "UPGRADE": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_GRID": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_RESULT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "MISSING_INGREDIENT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_0": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_1": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_2": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_3": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_4": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_5": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_6": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_7": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_8": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_9": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_10": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_11": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_12": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_13": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_14": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_15": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_16": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_17": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_18": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_19": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_20": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_21": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_22": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_23": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_0": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_1": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_2": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_3": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_4": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_5": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_6": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_7": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_8": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_9": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_10": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_11": {
+      "left": -10000,
+      "top": -10000
+    }
+  },
+  "text": {
+    "dialog_title": {
+      "position": {
+        "left": 8,
+        "top": 6
+      },
+      "scale": 0.9
+    },
+    "category": {
+      "position": {
+        "left": 8,
+        "top": 23
+      },
+      "scale": 0.85
+    },
+    "page": {
+      "position": {
+        "left": 80,
+        "top": 187
+      },
+      "scale": 0.75
+    },
+    "empty": {
+      "position": {
+        "left": 10,
+        "top": 79
+      },
+      "scale": 0.8,
+      "text": {
+        "translate": "gui.aedialsworks.powertools.no_issues"
+      }
+    },
+    "message": {
+      "position": {
+        "left": 8,
+        "top": -12
+      },
+      "scale": 0.8
+    }
+  },
+  "widgets": {
+    "search": {
+      "left": 170,
+      "top": 21,
+      "width": 117,
+      "height": 12
+    },
+    "scrollbar": {
+      "left": 287,
+      "top": 39,
+      "width": 7,
+      "height": 140
+    },
+    "result0": {
+      "left": 8,
+      "top": 39,
+      "width": 274,
+      "height": 14
+    },
+    "result1": {
+      "left": 8,
+      "top": 53,
+      "width": 274,
+      "height": 14
+    },
+    "result2": {
+      "left": 8,
+      "top": 67,
+      "width": 274,
+      "height": 14
+    },
+    "result3": {
+      "left": 8,
+      "top": 81,
+      "width": 274,
+      "height": 14
+    },
+    "result4": {
+      "left": 8,
+      "top": 95,
+      "width": 274,
+      "height": 14
+    },
+    "result5": {
+      "left": 8,
+      "top": 109,
+      "width": 274,
+      "height": 14
+    },
+    "result6": {
+      "left": 8,
+      "top": 123,
+      "width": 274,
+      "height": 14
+    },
+    "result7": {
+      "left": 8,
+      "top": 137,
+      "width": 274,
+      "height": 14
+    },
+    "result8": {
+      "left": 8,
+      "top": 151,
+      "width": 274,
+      "height": 14
+    },
+    "result9": {
+      "left": 8,
+      "top": 165,
+      "width": 274,
+      "height": 14
+    },
+    "tab0": {
+      "left": -24,
+      "top": 4,
+      "width": 22,
+      "height": 22
+    },
+    "tab1": {
+      "left": -24,
+      "top": 28,
+      "width": 22,
+      "height": 22
+    },
+    "tab2": {
+      "left": -24,
+      "top": 52,
+      "width": 22,
+      "height": 22
+    },
+    "tab3": {
+      "left": -24,
+      "top": 76,
+      "width": 22,
+      "height": 22
+    },
+    "tab4": {
+      "left": -24,
+      "top": 100,
+      "width": 22,
+      "height": 22
+    },
+    "tab5": {
+      "left": -24,
+      "top": 124,
+      "width": 22,
+      "height": 22
+    },
+    "scan": {
+      "left": 8,
+      "top": 183,
+      "width": 64,
+      "height": 14
+    }
+  },
+  "generatedBackground": {
+    "width": 304,
+    "height": 202
+  }
+}

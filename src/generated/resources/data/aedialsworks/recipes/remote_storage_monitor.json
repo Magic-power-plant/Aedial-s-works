@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "ae2:calculation_processor"
+    },
+    "l": {
+      "item": "ae2:logic_processor"
+    },
+    "m": {
+      "item": "aedialsworks:storage_display_part"
+    },
+    "s": {
+      "item": "ae2:smooth_sky_stone_block"
+    },
+    "w": {
+      "item": "ae2:wireless_receiver"
+    }
+  },
+  "pattern": [
+    "sws",
+    "lml",
+    "scs"
+  ],
+  "result": {
+    "item": "aedialsworks:remote_storage_monitor"
+  }
+}

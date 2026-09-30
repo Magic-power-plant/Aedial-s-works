@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "i": {
+      "item": "ae2:interface"
+    },
+    "u": {
+      "item": "aedialsworks:crafter_speed_upgrade_i"
+    }
+  },
+  "pattern": [
+    "uuu",
+    "uiu",
+    "uuu"
+  ],
+  "result": {
+    "item": "aedialsworks:crafter_speed_upgrade_ii"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "ae2:item/display_base",
+  "textures": {
+    "front": "aedialsworks:item/cellterminal/cell_terminal_outline",
+    "front_bright": "aedialsworks:item/cellterminal/cell_terminal_overlay",
+    "front_dark": "aedialsworks:item/cellterminal/cell_terminal_corners",
+    "front_medium": "aedialsworks:item/cellterminal/cell_terminal_background"
+  }
+}

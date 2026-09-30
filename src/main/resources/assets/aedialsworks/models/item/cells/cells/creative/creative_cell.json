@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "aedialsworks:cells/items/cells/creative/creative_item_cell"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "plp",
+    "scs",
+    "psp"
+  ],
+  "key": {
+    "p": {
+      "item": "minecraft:sticky_piston"
+    },
+    "l": {
+      "item": "aedialsworks:overclocked_processor_logic"
+    },
+    "s": {
+      "item": "ae2:singularity"
+    },
+    "c": {
+      "item": "ae2:advanced_card"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:decompression_tier_card_3x",
+    "count": 1
+  }
+}

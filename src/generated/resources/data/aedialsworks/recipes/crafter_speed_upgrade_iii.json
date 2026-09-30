@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "s": {
+      "item": "ae2:singularity"
+    },
+    "u": {
+      "item": "aedialsworks:crafter_speed_upgrade_ii"
+    }
+  },
+  "pattern": [
+    "uuu",
+    "usu",
+    "uuu"
+  ],
+  "result": {
+    "item": "aedialsworks:crafter_speed_upgrade_iii"
+  }
+}

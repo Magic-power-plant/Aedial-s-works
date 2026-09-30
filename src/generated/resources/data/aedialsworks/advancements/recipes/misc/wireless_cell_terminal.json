@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cell_terminal": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "aedialsworks:cell_terminal"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "aedialsworks:wireless_cell_terminal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_cell_terminal",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "aedialsworks:wireless_cell_terminal"
+    ]
+  },
+  "sends_telemetry_event": false
+}

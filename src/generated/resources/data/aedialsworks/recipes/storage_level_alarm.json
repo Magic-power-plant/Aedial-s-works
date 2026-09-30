@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "ae2:calculation_processor"
+    },
+    "e": {
+      "item": "aedialsworks:storage_level_emitter"
+    },
+    "f": {
+      "item": "ae2:fluix_crystal"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "p": [
+      {
+        "item": "ae2:semi_dark_monitor"
+      },
+      {
+        "item": "ae2:monitor"
+      },
+      {
+        "item": "ae2:dark_monitor"
+      }
+    ]
+  },
+  "pattern": [
+    "ipi",
+    "cec",
+    "ifi"
+  ],
+  "result": {
+    "item": "aedialsworks:storage_level_alarm"
+  }
+}

@@ -1,0 +1,581 @@
+{
+  "includes": [
+    "../../common/common.json"
+  ],
+  "slots": {
+    "PLAYER_INVENTORY": {
+      "left": -10000,
+      "top": -10000
+    },
+    "PLAYER_HOTBAR": {
+      "left": -10000,
+      "top": -10000
+    },
+    "UPGRADE": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_GRID": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_RESULT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "MISSING_INGREDIENT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_0": {
+      "left": 12,
+      "top": 22
+    },
+    "aedialsworks_config_1": {
+      "left": 63,
+      "top": 22
+    },
+    "aedialsworks_config_2": {
+      "left": 114,
+      "top": 22
+    },
+    "aedialsworks_config_3": {
+      "left": 165,
+      "top": 22
+    },
+    "aedialsworks_config_4": {
+      "left": 12,
+      "top": 45
+    },
+    "aedialsworks_config_5": {
+      "left": 63,
+      "top": 45
+    },
+    "aedialsworks_config_6": {
+      "left": 114,
+      "top": 45
+    },
+    "aedialsworks_config_7": {
+      "left": 165,
+      "top": 45
+    },
+    "aedialsworks_config_8": {
+      "left": 12,
+      "top": 68
+    },
+    "aedialsworks_config_9": {
+      "left": 63,
+      "top": 68
+    },
+    "aedialsworks_config_10": {
+      "left": 114,
+      "top": 68
+    },
+    "aedialsworks_config_11": {
+      "left": 165,
+      "top": 68
+    },
+    "aedialsworks_config_12": {
+      "left": 12,
+      "top": 91
+    },
+    "aedialsworks_config_13": {
+      "left": 63,
+      "top": 91
+    },
+    "aedialsworks_config_14": {
+      "left": 114,
+      "top": 91
+    },
+    "aedialsworks_config_15": {
+      "left": 165,
+      "top": 91
+    },
+    "aedialsworks_config_16": {
+      "left": 12,
+      "top": 114
+    },
+    "aedialsworks_config_17": {
+      "left": 63,
+      "top": 114
+    },
+    "aedialsworks_config_18": {
+      "left": 114,
+      "top": 114
+    },
+    "aedialsworks_config_19": {
+      "left": 165,
+      "top": 114
+    },
+    "aedialsworks_config_20": {
+      "left": 12,
+      "top": 137
+    },
+    "aedialsworks_config_21": {
+      "left": 63,
+      "top": 137
+    },
+    "aedialsworks_config_22": {
+      "left": 114,
+      "top": 137
+    },
+    "aedialsworks_config_23": {
+      "left": 165,
+      "top": 137
+    },
+    "aedialsworks_pattern_0": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_1": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_2": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_3": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_4": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_5": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_6": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_7": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_8": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_9": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_10": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_11": {
+      "left": -10000,
+      "top": -10000
+    }
+  },
+  "text": {
+    "dialog_title": {
+      "position": {
+        "left": 8,
+        "top": 5
+      },
+      "scale": 0.8
+    },
+    "comparison0": {
+      "position": {
+        "left": 29,
+        "top": 26
+      },
+      "scale": 0.7
+    },
+    "amount0": {
+      "position": {
+        "left": 40,
+        "top": 26
+      },
+      "scale": 0.55
+    },
+    "comparison1": {
+      "position": {
+        "left": 80,
+        "top": 26
+      },
+      "scale": 0.7
+    },
+    "amount1": {
+      "position": {
+        "left": 91,
+        "top": 26
+      },
+      "scale": 0.55
+    },
+    "comparison2": {
+      "position": {
+        "left": 131,
+        "top": 26
+      },
+      "scale": 0.7
+    },
+    "amount2": {
+      "position": {
+        "left": 142,
+        "top": 26
+      },
+      "scale": 0.55
+    },
+    "comparison3": {
+      "position": {
+        "left": 182,
+        "top": 26
+      },
+      "scale": 0.7
+    },
+    "amount3": {
+      "position": {
+        "left": 193,
+        "top": 26
+      },
+      "scale": 0.55
+    },
+    "comparison4": {
+      "position": {
+        "left": 29,
+        "top": 49
+      },
+      "scale": 0.7
+    },
+    "amount4": {
+      "position": {
+        "left": 40,
+        "top": 49
+      },
+      "scale": 0.55
+    },
+    "comparison5": {
+      "position": {
+        "left": 80,
+        "top": 49
+      },
+      "scale": 0.7
+    },
+    "amount5": {
+      "position": {
+        "left": 91,
+        "top": 49
+      },
+      "scale": 0.55
+    },
+    "comparison6": {
+      "position": {
+        "left": 131,
+        "top": 49
+      },
+      "scale": 0.7
+    },
+    "amount6": {
+      "position": {
+        "left": 142,
+        "top": 49
+      },
+      "scale": 0.55
+    },
+    "comparison7": {
+      "position": {
+        "left": 182,
+        "top": 49
+      },
+      "scale": 0.7
+    },
+    "amount7": {
+      "position": {
+        "left": 193,
+        "top": 49
+      },
+      "scale": 0.55
+    },
+    "comparison8": {
+      "position": {
+        "left": 29,
+        "top": 72
+      },
+      "scale": 0.7
+    },
+    "amount8": {
+      "position": {
+        "left": 40,
+        "top": 72
+      },
+      "scale": 0.55
+    },
+    "comparison9": {
+      "position": {
+        "left": 80,
+        "top": 72
+      },
+      "scale": 0.7
+    },
+    "amount9": {
+      "position": {
+        "left": 91,
+        "top": 72
+      },
+      "scale": 0.55
+    },
+    "comparison10": {
+      "position": {
+        "left": 131,
+        "top": 72
+      },
+      "scale": 0.7
+    },
+    "amount10": {
+      "position": {
+        "left": 142,
+        "top": 72
+      },
+      "scale": 0.55
+    },
+    "comparison11": {
+      "position": {
+        "left": 182,
+        "top": 72
+      },
+      "scale": 0.7
+    },
+    "amount11": {
+      "position": {
+        "left": 193,
+        "top": 72
+      },
+      "scale": 0.55
+    },
+    "comparison12": {
+      "position": {
+        "left": 29,
+        "top": 95
+      },
+      "scale": 0.7
+    },
+    "amount12": {
+      "position": {
+        "left": 40,
+        "top": 95
+      },
+      "scale": 0.55
+    },
+    "comparison13": {
+      "position": {
+        "left": 80,
+        "top": 95
+      },
+      "scale": 0.7
+    },
+    "amount13": {
+      "position": {
+        "left": 91,
+        "top": 95
+      },
+      "scale": 0.55
+    },
+    "comparison14": {
+      "position": {
+        "left": 131,
+        "top": 95
+      },
+      "scale": 0.7
+    },
+    "amount14": {
+      "position": {
+        "left": 142,
+        "top": 95
+      },
+      "scale": 0.55
+    },
+    "comparison15": {
+      "position": {
+        "left": 182,
+        "top": 95
+      },
+      "scale": 0.7
+    },
+    "amount15": {
+      "position": {
+        "left": 193,
+        "top": 95
+      },
+      "scale": 0.55
+    },
+    "comparison16": {
+      "position": {
+        "left": 29,
+        "top": 118
+      },
+      "scale": 0.7
+    },
+    "amount16": {
+      "position": {
+        "left": 40,
+        "top": 118
+      },
+      "scale": 0.55
+    },
+    "comparison17": {
+      "position": {
+        "left": 80,
+        "top": 118
+      },
+      "scale": 0.7
+    },
+    "amount17": {
+      "position": {
+        "left": 91,
+        "top": 118
+      },
+      "scale": 0.55
+    },
+    "comparison18": {
+      "position": {
+        "left": 131,
+        "top": 118
+      },
+      "scale": 0.7
+    },
+    "amount18": {
+      "position": {
+        "left": 142,
+        "top": 118
+      },
+      "scale": 0.55
+    },
+    "comparison19": {
+      "position": {
+        "left": 182,
+        "top": 118
+      },
+      "scale": 0.7
+    },
+    "amount19": {
+      "position": {
+        "left": 193,
+        "top": 118
+      },
+      "scale": 0.55
+    },
+    "comparison20": {
+      "position": {
+        "left": 29,
+        "top": 141
+      },
+      "scale": 0.7
+    },
+    "amount20": {
+      "position": {
+        "left": 40,
+        "top": 141
+      },
+      "scale": 0.55
+    },
+    "comparison21": {
+      "position": {
+        "left": 80,
+        "top": 141
+      },
+      "scale": 0.7
+    },
+    "amount21": {
+      "position": {
+        "left": 91,
+        "top": 141
+      },
+      "scale": 0.55
+    },
+    "comparison22": {
+      "position": {
+        "left": 131,
+        "top": 141
+      },
+      "scale": 0.7
+    },
+    "amount22": {
+      "position": {
+        "left": 142,
+        "top": 141
+      },
+      "scale": 0.55
+    },
+    "comparison23": {
+      "position": {
+        "left": 182,
+        "top": 141
+      },
+      "scale": 0.7
+    },
+    "amount23": {
+      "position": {
+        "left": 193,
+        "top": 141
+      },
+      "scale": 0.55
+    },
+    "entry": {
+      "position": {
+        "left": 8,
+        "top": 176
+      },
+      "scale": 0.6
+    },
+    "message": {
+      "position": {
+        "left": 8,
+        "top": -12
+      },
+      "scale": 0.8
+    }
+  },
+  "widgets": {
+    "threshold": {
+      "left": 8,
+      "top": 163,
+      "width": 203,
+      "height": 10
+    },
+    "settings": {
+      "left": 200,
+      "top": 0,
+      "width": 22,
+      "height": 22
+    },
+    "mode": {
+      "left": -18,
+      "top": 4,
+      "width": 16,
+      "height": 16
+    },
+    "hysteresis": {
+      "left": -18,
+      "top": 24,
+      "width": 16,
+      "height": 16
+    },
+    "inventoryButton": {
+      "left": -18,
+      "top": 44,
+      "width": 16,
+      "height": 16
+    },
+    "binding": {
+      "left": 182,
+      "top": 1,
+      "width": 16,
+      "height": 16
+    }
+  },
+  "background": {
+    "texture": "aedialsworks:textures/powertools/guis/emitter_gui.png",
+    "srcRect": [
+      0,
+      0,
+      221,
+      184
+    ]
+  }
+}

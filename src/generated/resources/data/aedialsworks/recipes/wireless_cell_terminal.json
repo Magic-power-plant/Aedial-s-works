@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "ae2:dense_energy_cell"
+    },
+    "T": {
+      "item": "aedialsworks:cell_terminal"
+    },
+    "W": {
+      "item": "ae2:wireless_receiver"
+    }
+  },
+  "pattern": [
+    "W",
+    "T",
+    "E"
+  ],
+  "result": {
+    "item": "aedialsworks:wireless_cell_terminal"
+  },
+  "show_notification": true
+}

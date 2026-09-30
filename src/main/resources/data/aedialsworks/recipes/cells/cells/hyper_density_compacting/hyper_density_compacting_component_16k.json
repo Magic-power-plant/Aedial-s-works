@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aba",
+    "cdc",
+    "aca"
+  ],
+  "key": {
+    "a": {
+      "tag": "forge:dusts/redstone"
+    },
+    "b": {
+      "item": "aedialsworks:overclocked_processor_logic"
+    },
+    "c": {
+      "item": "aedialsworks:hyper_density_compacting_component_4k"
+    },
+    "d": {
+      "item": "aedialsworks:singularity_processor_logic"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:hyper_density_compacting_component_16k"
+  }
+}

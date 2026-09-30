@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "aedialsworks:block/cells/io_item_interface_fixed"
+    }
+  }
+}

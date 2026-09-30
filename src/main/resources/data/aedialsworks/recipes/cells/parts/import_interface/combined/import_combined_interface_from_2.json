@@ -1,0 +1,14 @@
+{
+  "type": "aedialsworks:machine_assembly",
+  "ingredients": [
+    {
+      "item": "aedialsworks:import_interface_part"
+    },
+    {
+      "item": "aedialsworks:fluid_import_interface_part"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:combined_import_interface_part"
+  }
+}

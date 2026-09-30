@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ae2:item_cell_housing"
+    },
+    {
+      "item": "aedialsworks:hyper_density_fluid_component_4k"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:hyper_density_fluid_cell_4k"
+  }
+}

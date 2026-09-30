@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "aedialsworks:powertools/blocks/monitor_side",
+    "east": "aedialsworks:powertools/blocks/monitor_side",
+    "north": "aedialsworks:powertools/blocks/storage_level_emitter",
+    "south": "aedialsworks:powertools/blocks/monitor_side",
+    "up": "aedialsworks:powertools/blocks/monitor_side",
+    "west": "aedialsworks:powertools/blocks/monitor_side"
+  }
+}

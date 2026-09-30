@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "a": {
+      "item": "ae2:advanced_card"
+    },
+    "b": {
+      "item": "ae2:basic_card"
+    },
+    "c": {
+      "item": "ae2:calculation_processor"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "s": {
+      "item": "ae2:silicon"
+    },
+    "w": {
+      "item": "ae2:wireless_receiver"
+    }
+  },
+  "pattern": [
+    "sws",
+    "bca",
+    "sis"
+  ],
+  "result": {
+    "item": "aedialsworks:cards_distributor"
+  }
+}

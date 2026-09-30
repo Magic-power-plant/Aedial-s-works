@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "ae2:calculation_processor"
+    },
+    "e": {
+      "item": "ae2:engineering_processor"
+    },
+    "n": {
+      "item": "ae2:network_tool"
+    },
+    "s": {
+      "item": "ae2:smooth_sky_stone_block"
+    },
+    "w": {
+      "item": "ae2:wireless_receiver"
+    }
+  },
+  "pattern": [
+    "sws",
+    "cnc",
+    "ses"
+  ],
+  "result": {
+    "item": "aedialsworks:network_component_locator"
+  }
+}

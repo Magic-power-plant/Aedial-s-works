@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "aedialsworks:powertools/blocks/storage_level_alarm_top",
+    "east": "aedialsworks:powertools/blocks/storage_level_alarm_side",
+    "north": "aedialsworks:powertools/blocks/storage_level_alarm_side",
+    "south": "aedialsworks:powertools/blocks/storage_level_alarm_side",
+    "up": "aedialsworks:powertools/blocks/storage_level_alarm_top",
+    "west": "aedialsworks:powertools/blocks/storage_level_alarm_side"
+  }
+}

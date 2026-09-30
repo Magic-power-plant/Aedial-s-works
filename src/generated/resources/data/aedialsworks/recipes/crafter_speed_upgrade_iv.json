@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "ae2:cell_component_64k"
+    },
+    "u": {
+      "item": "aedialsworks:crafter_speed_upgrade_iii"
+    }
+  },
+  "pattern": [
+    "uuu",
+    "ucu",
+    "uuu"
+  ],
+  "result": {
+    "item": "aedialsworks:crafter_speed_upgrade_iv"
+  }
+}

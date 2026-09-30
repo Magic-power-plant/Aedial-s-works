@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "aedialsworks:powertools/blocks/maintainer_top",
+    "east": "aedialsworks:powertools/blocks/maintainer_side",
+    "north": "aedialsworks:powertools/blocks/maintainer_side_assembler",
+    "south": "aedialsworks:powertools/blocks/maintainer_side",
+    "up": "aedialsworks:powertools/blocks/maintainer_top",
+    "west": "aedialsworks:powertools/blocks/maintainer_side"
+  }
+}

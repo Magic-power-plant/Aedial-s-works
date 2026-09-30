@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aba",
+    "cdc",
+    "aca"
+  ],
+  "key": {
+    "a": {
+      "tag": "forge:dusts/redstone"
+    },
+    "b": {
+      "item": "aedialsworks:overclocked_processor_logic"
+    },
+    "c": {
+      "item": "aedialsworks:compacting_component_4k"
+    },
+    "d": {
+      "item": "ae2:quartz_glass"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:compacting_component_16k"
+  }
+}

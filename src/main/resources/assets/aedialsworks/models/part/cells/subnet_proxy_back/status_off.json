@@ -1,0 +1,52 @@
+{
+  "textures": {
+    "cable": "aedialsworks:cells/parts/subnet_proxy/proxy_side_cable_off",
+    "side": "aedialsworks:cells/parts/subnet_proxy/proxy_back_side_off",
+    "top": "aedialsworks:cells/parts/subnet_proxy/proxy_back_top_off"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        5
+      ],
+      "faces": {
+        "south": {
+          "texture": "#cable"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            5,
+            16
+          ],
+          "rotation": 90
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            5,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "rotation": 180
+        }
+      }
+    }
+  ]
+}

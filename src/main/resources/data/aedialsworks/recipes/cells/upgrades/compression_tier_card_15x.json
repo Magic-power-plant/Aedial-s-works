@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "aedialsworks:compression_tier_card_12x"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:compression_tier_card_15x",
+    "count": 1
+  }
+}

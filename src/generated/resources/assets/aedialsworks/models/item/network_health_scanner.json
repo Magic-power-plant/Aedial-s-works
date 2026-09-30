@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "aedialsworks:powertools/items/network_health_scanner"
+  }
+}

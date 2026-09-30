@@ -1,0 +1,312 @@
+{
+  "includes": [
+    "../../common/common.json"
+  ],
+  "slots": {
+    "PLAYER_INVENTORY": {
+      "left": -10000,
+      "top": -10000
+    },
+    "PLAYER_HOTBAR": {
+      "left": -10000,
+      "top": -10000
+    },
+    "UPGRADE": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_GRID": {
+      "left": -10000,
+      "top": -10000
+    },
+    "CRAFTING_RESULT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "MISSING_INGREDIENT": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_0": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_1": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_2": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_3": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_4": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_5": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_6": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_7": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_8": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_9": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_10": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_11": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_12": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_13": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_14": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_15": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_16": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_17": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_18": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_19": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_20": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_21": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_22": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_config_23": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_0": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_1": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_2": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_3": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_4": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_5": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_6": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_7": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_8": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_9": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_10": {
+      "left": -10000,
+      "top": -10000
+    },
+    "aedialsworks_pattern_11": {
+      "left": -10000,
+      "top": -10000
+    }
+  },
+  "text": {
+    "resource": {
+      "position": {
+        "left": 25,
+        "top": 10
+      },
+      "scale": 0.85
+    },
+    "target": {
+      "position": {
+        "left": 60,
+        "top": 28
+      },
+      "scale": 1,
+      "text": {
+        "translate": "gui.aedialsworks.powertools.target"
+      }
+    },
+    "secondary": {
+      "position": {
+        "left": 60,
+        "top": 54
+      },
+      "scale": 1,
+      "text": {
+        "translate": "gui.aedialsworks.powertools.secondary"
+      }
+    },
+    "ticks": {
+      "position": {
+        "left": 60,
+        "top": 80
+      },
+      "scale": 1,
+      "text": {
+        "translate": "gui.aedialsworks.powertools.ticks"
+      }
+    },
+    "state": {
+      "position": {
+        "left": 6,
+        "top": 32
+      },
+      "scale": 0.65
+    },
+    "quantity": {
+      "position": {
+        "left": 6,
+        "top": 44
+      },
+      "scale": 0.55
+    },
+    "message": {
+      "position": {
+        "left": 8,
+        "top": -12
+      },
+      "scale": 0.8
+    }
+  },
+  "widgets": {
+    "back": {
+      "left": -18,
+      "top": 4,
+      "width": 16,
+      "height": 16
+    },
+    "threshold": {
+      "left": 60,
+      "top": 38,
+      "width": 110,
+      "height": 12
+    },
+    "secondaryInput": {
+      "left": 60,
+      "top": 64,
+      "width": 110,
+      "height": 12
+    },
+    "interval": {
+      "left": 60,
+      "top": 90,
+      "width": 110,
+      "height": 12
+    },
+    "choose": {
+      "left": 178,
+      "top": 4,
+      "width": 16,
+      "height": 16
+    },
+    "enabled": {
+      "left": 178,
+      "top": 24,
+      "width": 16,
+      "height": 16
+    },
+    "save": {
+      "left": 178,
+      "top": 44,
+      "width": 16,
+      "height": 16
+    },
+    "clear": {
+      "left": 178,
+      "top": 64,
+      "width": 16,
+      "height": 16
+    },
+    "cancel": {
+      "left": 178,
+      "top": 84,
+      "width": 16,
+      "height": 16
+    },
+    "run": {
+      "left": 6,
+      "top": 76,
+      "width": 16,
+      "height": 16
+    },
+    "compare": {
+      "left": 6,
+      "top": 58,
+      "width": 42,
+      "height": 14
+    }
+  },
+  "background": {
+    "texture": "aedialsworks:textures/powertools/guis/maintainer_modal.png",
+    "srcRect": [
+      0,
+      0,
+      176,
+      107
+    ]
+  }
+}

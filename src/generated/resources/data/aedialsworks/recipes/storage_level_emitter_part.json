@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "aedialsworks:storage_level_emitter"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:storage_level_emitter_part"
+  }
+}

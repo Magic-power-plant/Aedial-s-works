@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "aedialsworks:equal_distribution_card_32x"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:equal_distribution_card_63x",
+    "count": 1
+  }
+}

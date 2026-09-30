@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aga",
+    "bfb",
+    "aia"
+  ],
+  "key": {
+    "a": {
+      "tag": "forge:ingots/iron"
+    },
+    "b": {
+      "item": "ae2:annihilation_core"
+    },
+    "f": {
+      "item": "ae2:fluix_pearl"
+    },
+    "g": {
+      "item": "minecraft:bucket"
+    },
+    "i": {
+      "item": "ae2:export_bus"
+    }
+  },
+  "result": {
+    "item": "aedialsworks:fluid_export_interface"
+  }
+}

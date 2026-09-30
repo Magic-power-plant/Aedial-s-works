@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ae2:item_cell_housing"
+    },
+    {
+      "item": "aedialsworks:compacting_component_1m"
+    }
+  ],
+  "result": {
+    "item": "aedialsworks:compacting_cell_1m"
+  }
+}

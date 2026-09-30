@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:directory",
+      "source": "powertools/blocks",
+      "prefix": "powertools/blocks/"
+    },
+    {
+      "type": "minecraft:directory",
+      "source": "powertools/items",
+      "prefix": "powertools/items/"
+    },
+    {
+      "type": "minecraft:directory",
+      "source": "powertools/parts",
+      "prefix": "powertools/parts/"
+    },
+    {
+      "type": "minecraft:directory",
+      "source": "cells/blocks",
+      "prefix": "cells/blocks/"
+    },
+    {
+      "type": "minecraft:directory",
+      "source": "cells/items",
+      "prefix": "cells/items/"
+    },
+    {
+      "type": "minecraft:directory",
+      "source": "cells/parts",
+      "prefix": "cells/parts/"
+    }
+  ]
+}

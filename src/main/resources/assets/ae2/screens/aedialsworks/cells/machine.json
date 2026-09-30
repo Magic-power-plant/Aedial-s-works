@@ -1,0 +1,742 @@
+{
+  "includes": [
+    "../../common/common.json"
+  ],
+  "slots": {
+    "PLAYER_INVENTORY": {
+      "left": 8,
+      "top": 174,
+      "grid": "BREAK_AFTER_9COLS"
+    },
+    "PLAYER_HOTBAR": {
+      "left": 8,
+      "top": 232,
+      "grid": "HORIZONTAL"
+    },
+    "cells_filter_0": {
+      "left": 8,
+      "top": 24
+    },
+    "cells_buffer_0": {
+      "left": 8,
+      "top": 42
+    },
+    "cells_filter_1": {
+      "left": 26,
+      "top": 24
+    },
+    "cells_buffer_1": {
+      "left": 26,
+      "top": 42
+    },
+    "cells_filter_2": {
+      "left": 44,
+      "top": 24
+    },
+    "cells_buffer_2": {
+      "left": 44,
+      "top": 42
+    },
+    "cells_filter_3": {
+      "left": 62,
+      "top": 24
+    },
+    "cells_buffer_3": {
+      "left": 62,
+      "top": 42
+    },
+    "cells_filter_4": {
+      "left": 80,
+      "top": 24
+    },
+    "cells_buffer_4": {
+      "left": 80,
+      "top": 42
+    },
+    "cells_filter_5": {
+      "left": 98,
+      "top": 24
+    },
+    "cells_buffer_5": {
+      "left": 98,
+      "top": 42
+    },
+    "cells_filter_6": {
+      "left": 116,
+      "top": 24
+    },
+    "cells_buffer_6": {
+      "left": 116,
+      "top": 42
+    },
+    "cells_filter_7": {
+      "left": 134,
+      "top": 24
+    },
+    "cells_buffer_7": {
+      "left": 134,
+      "top": 42
+    },
+    "cells_filter_8": {
+      "left": 152,
+      "top": 24
+    },
+    "cells_buffer_8": {
+      "left": 152,
+      "top": 42
+    },
+    "cells_filter_9": {
+      "left": 8,
+      "top": 60
+    },
+    "cells_buffer_9": {
+      "left": 8,
+      "top": 78
+    },
+    "cells_filter_10": {
+      "left": 26,
+      "top": 60
+    },
+    "cells_buffer_10": {
+      "left": 26,
+      "top": 78
+    },
+    "cells_filter_11": {
+      "left": 44,
+      "top": 60
+    },
+    "cells_buffer_11": {
+      "left": 44,
+      "top": 78
+    },
+    "cells_filter_12": {
+      "left": 62,
+      "top": 60
+    },
+    "cells_buffer_12": {
+      "left": 62,
+      "top": 78
+    },
+    "cells_filter_13": {
+      "left": 80,
+      "top": 60
+    },
+    "cells_buffer_13": {
+      "left": 80,
+      "top": 78
+    },
+    "cells_filter_14": {
+      "left": 98,
+      "top": 60
+    },
+    "cells_buffer_14": {
+      "left": 98,
+      "top": 78
+    },
+    "cells_filter_15": {
+      "left": 116,
+      "top": 60
+    },
+    "cells_buffer_15": {
+      "left": 116,
+      "top": 78
+    },
+    "cells_filter_16": {
+      "left": 134,
+      "top": 60
+    },
+    "cells_buffer_16": {
+      "left": 134,
+      "top": 78
+    },
+    "cells_filter_17": {
+      "left": 152,
+      "top": 60
+    },
+    "cells_buffer_17": {
+      "left": 152,
+      "top": 78
+    },
+    "cells_filter_18": {
+      "left": 8,
+      "top": 96
+    },
+    "cells_buffer_18": {
+      "left": 8,
+      "top": 114
+    },
+    "cells_filter_19": {
+      "left": 26,
+      "top": 96
+    },
+    "cells_buffer_19": {
+      "left": 26,
+      "top": 114
+    },
+    "cells_filter_20": {
+      "left": 44,
+      "top": 96
+    },
+    "cells_buffer_20": {
+      "left": 44,
+      "top": 114
+    },
+    "cells_filter_21": {
+      "left": 62,
+      "top": 96
+    },
+    "cells_buffer_21": {
+      "left": 62,
+      "top": 114
+    },
+    "cells_filter_22": {
+      "left": 80,
+      "top": 96
+    },
+    "cells_buffer_22": {
+      "left": 80,
+      "top": 114
+    },
+    "cells_filter_23": {
+      "left": 98,
+      "top": 96
+    },
+    "cells_buffer_23": {
+      "left": 98,
+      "top": 114
+    },
+    "cells_filter_24": {
+      "left": 116,
+      "top": 96
+    },
+    "cells_buffer_24": {
+      "left": 116,
+      "top": 114
+    },
+    "cells_filter_25": {
+      "left": 134,
+      "top": 96
+    },
+    "cells_buffer_25": {
+      "left": 134,
+      "top": 114
+    },
+    "cells_filter_26": {
+      "left": 152,
+      "top": 96
+    },
+    "cells_buffer_26": {
+      "left": 152,
+      "top": 114
+    },
+    "cells_filter_27": {
+      "left": 8,
+      "top": 132
+    },
+    "cells_buffer_27": {
+      "left": 8,
+      "top": 150
+    },
+    "cells_filter_28": {
+      "left": 26,
+      "top": 132
+    },
+    "cells_buffer_28": {
+      "left": 26,
+      "top": 150
+    },
+    "cells_filter_29": {
+      "left": 44,
+      "top": 132
+    },
+    "cells_buffer_29": {
+      "left": 44,
+      "top": 150
+    },
+    "cells_filter_30": {
+      "left": 62,
+      "top": 132
+    },
+    "cells_buffer_30": {
+      "left": 62,
+      "top": 150
+    },
+    "cells_filter_31": {
+      "left": 80,
+      "top": 132
+    },
+    "cells_buffer_31": {
+      "left": 80,
+      "top": 150
+    },
+    "cells_filter_32": {
+      "left": 98,
+      "top": 132
+    },
+    "cells_buffer_32": {
+      "left": 98,
+      "top": 150
+    },
+    "cells_filter_33": {
+      "left": 116,
+      "top": 132
+    },
+    "cells_buffer_33": {
+      "left": 116,
+      "top": 150
+    },
+    "cells_filter_34": {
+      "left": 134,
+      "top": 132
+    },
+    "cells_buffer_34": {
+      "left": 134,
+      "top": 150
+    },
+    "cells_filter_35": {
+      "left": 152,
+      "top": 132
+    },
+    "cells_buffer_35": {
+      "left": 152,
+      "top": 150
+    },
+    "cells_upgrade_0": {
+      "left": 186,
+      "top": 25
+    },
+    "cells_upgrade_1": {
+      "left": 186,
+      "top": 43
+    },
+    "cells_upgrade_2": {
+      "left": 186,
+      "top": 61
+    },
+    "cells_upgrade_3": {
+      "left": 186,
+      "top": 79
+    },
+    "cells_upgrade_4": {
+      "left": 186,
+      "top": 97
+    },
+    "cells_upgrade_5": {
+      "left": 186,
+      "top": 115
+    },
+    "cells_upgrade_6": {
+      "left": 186,
+      "top": 133
+    },
+    "cells_upgrade_7": {
+      "left": 186,
+      "top": 151
+    },
+    "cells_upgrade_8": {
+      "left": 204,
+      "top": 25
+    },
+    "cells_upgrade_9": {
+      "left": 204,
+      "top": 43
+    },
+    "cells_upgrade_10": {
+      "left": 204,
+      "top": 61
+    },
+    "cells_upgrade_11": {
+      "left": 204,
+      "top": 79
+    },
+    "cells_upgrade_12": {
+      "left": 204,
+      "top": 97
+    },
+    "cells_upgrade_13": {
+      "left": 204,
+      "top": 115
+    },
+    "cells_upgrade_14": {
+      "left": 204,
+      "top": 133
+    },
+    "cells_upgrade_15": {
+      "left": 204,
+      "top": 151
+    },
+    "cells_upgrade_16": {
+      "left": 222,
+      "top": 25
+    },
+    "cells_upgrade_17": {
+      "left": 222,
+      "top": 43
+    },
+    "cells_upgrade_18": {
+      "left": 222,
+      "top": 61
+    },
+    "cells_upgrade_19": {
+      "left": 222,
+      "top": 79
+    },
+    "cells_upgrade_20": {
+      "left": 222,
+      "top": 97
+    },
+    "cells_upgrade_21": {
+      "left": 222,
+      "top": 115
+    },
+    "cells_upgrade_22": {
+      "left": 222,
+      "top": 133
+    },
+    "cells_upgrade_23": {
+      "left": 222,
+      "top": 151
+    }
+  },
+  "background": {
+    "texture": "aedialsworks:textures/cells/guis/import_interface.png",
+    "srcRect": [
+      0,
+      0,
+      210,
+      256
+    ]
+  },
+  "text": {
+    "dialog_title": {
+      "position": {
+        "left": 8,
+        "top": 5
+      },
+      "scale": 0.8
+    },
+    "channel": {
+      "position": {
+        "left": 8,
+        "top": 15
+      },
+      "scale": 0.6
+    },
+    "status": {
+      "position": {
+        "left": 8,
+        "top": 170
+      },
+      "scale": 0.45
+    },
+    "message": {
+      "position": {
+        "left": 8,
+        "top": -12
+      },
+      "scale": 0.65
+    },
+    "amount0": {
+      "position": {
+        "left": 8,
+        "top": 56
+      },
+      "scale": 0.45
+    },
+    "amount1": {
+      "position": {
+        "left": 26,
+        "top": 56
+      },
+      "scale": 0.45
+    },
+    "amount2": {
+      "position": {
+        "left": 44,
+        "top": 56
+      },
+      "scale": 0.45
+    },
+    "amount3": {
+      "position": {
+        "left": 62,
+        "top": 56
+      },
+      "scale": 0.45
+    },
+    "amount4": {
+      "position": {
+        "left": 80,
+        "top": 56
+      },
+      "scale": 0.45
+    },
+    "amount5": {
+      "position": {
+        "left": 98,
+        "top": 56
+      },
+      "scale": 0.45
+    },
+    "amount6": {
+      "position": {
+        "left": 116,
+        "top": 56
+      },
+      "scale": 0.45
+    },
+    "amount7": {
+      "position": {
+        "left": 134,
+        "top": 56
+      },
+      "scale": 0.45
+    },
+    "amount8": {
+      "position": {
+        "left": 152,
+        "top": 56
+      },
+      "scale": 0.45
+    },
+    "amount9": {
+      "position": {
+        "left": 8,
+        "top": 92
+      },
+      "scale": 0.45
+    },
+    "amount10": {
+      "position": {
+        "left": 26,
+        "top": 92
+      },
+      "scale": 0.45
+    },
+    "amount11": {
+      "position": {
+        "left": 44,
+        "top": 92
+      },
+      "scale": 0.45
+    },
+    "amount12": {
+      "position": {
+        "left": 62,
+        "top": 92
+      },
+      "scale": 0.45
+    },
+    "amount13": {
+      "position": {
+        "left": 80,
+        "top": 92
+      },
+      "scale": 0.45
+    },
+    "amount14": {
+      "position": {
+        "left": 98,
+        "top": 92
+      },
+      "scale": 0.45
+    },
+    "amount15": {
+      "position": {
+        "left": 116,
+        "top": 92
+      },
+      "scale": 0.45
+    },
+    "amount16": {
+      "position": {
+        "left": 134,
+        "top": 92
+      },
+      "scale": 0.45
+    },
+    "amount17": {
+      "position": {
+        "left": 152,
+        "top": 92
+      },
+      "scale": 0.45
+    },
+    "amount18": {
+      "position": {
+        "left": 8,
+        "top": 128
+      },
+      "scale": 0.45
+    },
+    "amount19": {
+      "position": {
+        "left": 26,
+        "top": 128
+      },
+      "scale": 0.45
+    },
+    "amount20": {
+      "position": {
+        "left": 44,
+        "top": 128
+      },
+      "scale": 0.45
+    },
+    "amount21": {
+      "position": {
+        "left": 62,
+        "top": 128
+      },
+      "scale": 0.45
+    },
+    "amount22": {
+      "position": {
+        "left": 80,
+        "top": 128
+      },
+      "scale": 0.45
+    },
+    "amount23": {
+      "position": {
+        "left": 98,
+        "top": 128
+      },
+      "scale": 0.45
+    },
+    "amount24": {
+      "position": {
+        "left": 116,
+        "top": 128
+      },
+      "scale": 0.45
+    },
+    "amount25": {
+      "position": {
+        "left": 134,
+        "top": 128
+      },
+      "scale": 0.45
+    },
+    "amount26": {
+      "position": {
+        "left": 152,
+        "top": 128
+      },
+      "scale": 0.45
+    },
+    "amount27": {
+      "position": {
+        "left": 8,
+        "top": 164
+      },
+      "scale": 0.45
+    },
+    "amount28": {
+      "position": {
+        "left": 26,
+        "top": 164
+      },
+      "scale": 0.45
+    },
+    "amount29": {
+      "position": {
+        "left": 44,
+        "top": 164
+      },
+      "scale": 0.45
+    },
+    "amount30": {
+      "position": {
+        "left": 62,
+        "top": 164
+      },
+      "scale": 0.45
+    },
+    "amount31": {
+      "position": {
+        "left": 80,
+        "top": 164
+      },
+      "scale": 0.45
+    },
+    "amount32": {
+      "position": {
+        "left": 98,
+        "top": 164
+      },
+      "scale": 0.45
+    },
+    "amount33": {
+      "position": {
+        "left": 116,
+        "top": 164
+      },
+      "scale": 0.45
+    },
+    "amount34": {
+      "position": {
+        "left": 134,
+        "top": 164
+      },
+      "scale": 0.45
+    },
+    "amount35": {
+      "position": {
+        "left": 152,
+        "top": 164
+      },
+      "scale": 0.45
+    }
+  },
+  "widgets": {
+    "previous": {
+      "left": -20,
+      "top": 5,
+      "width": 16,
+      "height": 16
+    },
+    "next": {
+      "left": -20,
+      "top": 25,
+      "width": 16,
+      "height": 16
+    },
+    "settings": {
+      "left": -20,
+      "top": 45,
+      "width": 16,
+      "height": 16
+    },
+    "port": {
+      "left": -20,
+      "top": 65,
+      "width": 16,
+      "height": 16
+    },
+    "inverse": {
+      "left": -20,
+      "top": 85,
+      "width": 16,
+      "height": 16
+    },
+    "items": {
+      "left": -20,
+      "top": 105,
+      "width": 16,
+      "height": 16
+    },
+    "fluids": {
+      "left": -20,
+      "top": 125,
+      "width": 16,
+      "height": 16
+    },
+    "fuzzy": {
+      "left": -20,
+      "top": 145,
+      "width": 16,
+      "height": 16
+    }
+  }
+}
